@@ -40,10 +40,10 @@ export function SignInForm() {
         password: values.password, // user password -> min 8 characters by default
       },
       {
-        onRequest: (ctx) => {
+        onRequest: () => {
           //show loading
         },
-        onSuccess: (ctx) => {
+        onSuccess: () => {
           router.replace("/"); // redirect to the home page
         },
         onError: (ctx) => {
