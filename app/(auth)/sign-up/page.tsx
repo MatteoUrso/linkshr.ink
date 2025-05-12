@@ -1,14 +1,19 @@
 "use client";
 
 import { signUp } from "@/lib/auth-client";
+import { useState } from "react";
 
 export default function Page() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [name, setName] = useState("");
+
   const handleSignUp = async () => {
     const { data, error } = await signUp.email(
       {
-        email: "matteourso100@gmail.com", // user email address
-        password: "Lopo9090!", // user password -> min 8 characters by default
-        name: "Matteo Urso", // user display name
+        email, // user email address
+        password, // user password -> min 8 characters by default
+        name, // user display name
         // image, // User image URL (optional)
         // callbackURL: "/dashboard", // A URL to redirect to after the user verifies their email (optional)
       },

@@ -1,13 +1,17 @@
 "use client";
 
 import { signIn } from "@/lib/auth-client";
+import { useState } from "react";
 
 export default function Page() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
   const handleSignIn = async () => {
     const { data, error } = await signIn.email(
       {
-        email: "matteourso100@gmail.com", // user email address
-        password: "Lopo9090!", // user password -> min 8 characters by default
+        email, // user email address
+        password, // user password -> min 8 characters by default
       },
       {
         onRequest: (ctx) => {
