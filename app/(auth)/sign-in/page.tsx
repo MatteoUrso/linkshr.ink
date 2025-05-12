@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 
 export default function Page() {
   return (
-    <main className="flex h-screen w-full items-center justify-center">
+    <main className="flex h-screen w-full flex-col items-center justify-center">
       <h1 className="mb-4 text-4xl font-bold">Sign In</h1>
       <SignInForm />
     </main>
