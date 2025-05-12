@@ -27,6 +27,9 @@ export function SignInForm() {
         },
       }
     );
+
+    console.log("SignIn data", data);
+    console.log("SignIn error", error);
   };
 
   return <button onClick={handleSignIn}>SignIn</button>;

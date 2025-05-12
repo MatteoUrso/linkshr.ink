@@ -35,6 +35,7 @@ export default function Page() {
 
   return (
     <main className="flex h-screen w-full items-center justify-center">
+      <h1 className="mb-4 text-4xl font-bold">Sign Up</h1>
       <button onClick={handleSignUp}>SignUp</button>
     </main>
   );
