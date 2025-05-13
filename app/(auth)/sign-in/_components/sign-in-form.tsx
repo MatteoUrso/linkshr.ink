@@ -1,5 +1,6 @@
 "use client";
 
+import { Button } from "@/components/ui/button";
 import {
   Form,
   FormControl,
@@ -12,6 +13,7 @@ import { Input } from "@/components/ui/input";
 import { signIn } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import { Loader2 } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
@@ -47,6 +49,7 @@ export function SignInForm({
     });
 
     if (error?.message) {
+      // TODO: Implement a better way to handle the error
       alert(error.message);
     }
   };
@@ -104,26 +107,21 @@ export function SignInForm({
               </FormItem>
             )}
           />
-          <button
+          <Button
             type="submit"
-            className={cn(
-              "w-full",
-              "h-9 px-4 py-2",
-              "focus-visible:ring-primary-ring focus-visible:ring-2 focus-visible:outline-none",
-              "disabled:pointer-events-none disabled:opacity-50",
-              "bg-primary text-primary-foreground",
-              "hover:bg-primary-hover",
-              "active:bg-primary-hover active:brightness-[0.92] active:saturate-[1.1] dark:active:brightness-[1.08]",
-              "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-colors [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
-            )}
+            className="w-full"
+            disabled={form.formState.isSubmitting}
           >
-            Sign In
-          </button>
-          <div className="after:border-slate-6 relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+            {form.formState.isSubmitting ? (
+              <Loader2 className="animate-spin" />
+            ) : null}
+            Sign in
+          </Button>
+          {/* <div className="after:border-slate-6 relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
             <span className="bg-slate-1 text-slate-11 relative z-10 px-2">
               Or continue with
             </span>
-          </div>
+          </div> */}
         </div>
         <div className="text-center text-sm">
           Don&apos;t have an account?{" "}
@@ -132,7 +130,7 @@ export function SignInForm({
             className={cn(
               "text-blue-11",
               "hover:underline hover:underline-offset-1",
-              "focus-visible:ring-blue-8 focus-visible:ring-offset-background focus-visible:ring-1 focus-visible:ring-offset-1 focus-visible:outline-none"
+              "focus-visible:ring-slate-8 focus-visible:ring-offset-background focus-visible:ring-1 focus-visible:ring-offset-1 focus-visible:outline-none"
             )}
           >
             Sign up
@@ -142,6 +140,3 @@ export function SignInForm({
     </Form>
   );
 }
-
-// brightness(0.92) saturate(1.1)
-// dark:brightness(1.08)
