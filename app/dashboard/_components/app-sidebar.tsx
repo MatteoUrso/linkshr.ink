@@ -1,6 +1,8 @@
+import { NavUser } from "./nav-user";
 import {
   Sidebar,
   SidebarContent,
+  SidebarFooter,
   SidebarGroup,
   SidebarGroupContent,
   SidebarGroupLabel,
@@ -54,7 +56,7 @@ type Props = React.ComponentProps<typeof Sidebar> & {
   image?: string | null;
 };
 
-export function AppSidebar({ ...props }: Props) {
+export function AppSidebar({ name, email, image, ...props }: Props) {
   return (
     <Sidebar collapsible="offcanvas" {...props}>
       <SidebarHeader>
@@ -66,7 +68,9 @@ export function AppSidebar({ ...props }: Props) {
               size="lg"
             >
               <Link href="/dashboard">
-                <ExternalLink className="h-5 w-5" />
+                <div className="bg-indigo-9 flex h-6 w-6 items-center justify-center rounded-md text-white">
+                  <ExternalLink className="h-4 w-4" />
+                </div>
                 <span className="text-base font-semibold">LinkShrink</span>
               </Link>
             </SidebarMenuButton>
@@ -90,6 +94,9 @@ export function AppSidebar({ ...props }: Props) {
           </SidebarGroupContent>
         </SidebarGroup>
       </SidebarContent>
+      <SidebarFooter>
+        <NavUser name={name} email={email} image={image} />
+      </SidebarFooter>
     </Sidebar>
   );
 }
