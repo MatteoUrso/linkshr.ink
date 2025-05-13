@@ -11,11 +11,20 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { Skeleton } from "@/components/ui/skeleton";
 
 export default async function Page() {
   return (
     <main className="flex h-screen flex-col items-center justify-center">
       <h1 className="text-4xl font-bold">Landing Page</h1>
+      <div className="flex items-center space-x-4">
+        <Skeleton className="h-12 w-12 rounded-full" />
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-[250px]" />
+          <Skeleton className="h-4 w-[200px]" />
+        </div>
+      </div>
+
       <Sheet>
         <SheetTrigger asChild>
           <Button variant="outline">Open</Button>

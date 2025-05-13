@@ -4,6 +4,9 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  --slate-alpha-3: #0000330f;
+  --slate-alpha-4: #00002d17;
+
   --slate-1: #fcfcfd;
   --slate-2: #f9f9fb;
   --slate-3: #f0f0f3;
@@ -71,6 +74,9 @@
 }
 
 .dark {
+  --slate-alpha-3: #ddeaf814;
+  --slate-alpha-4: #d3edf81d;
+
   --slate-1: #111113;
   --slate-2: #18191b;
   --slate-3: #212225;
@@ -167,6 +173,9 @@
 */
 
 @theme inline {
+  --color-slate-alpha-3: var(--slate-alpha-3);
+  --color-slate-alpha-4: var(--slate-alpha-4);
+
   --color-slate-1: var(--slate-1);
   --color-slate-2: var(--slate-2);
   --color-slate-3: var(--slate-3);
@@ -222,6 +231,18 @@
   --font-inter: var(--font-inter);
   --font-jetbrains: var(--font-jetbrains);
   --font-sora: var(--font-sora);
+}
+
+@theme {
+  --animate-skeleton-pulse: skeleton-pulse 1000ms infinite alternate-reverse !important;
+  @keyframes skeleton-pulse {
+    from {
+      background-color: var(--color-slate-alpha-3);
+    }
+    to {
+      background-color: var(--color-slate-alpha-4);
+    }
+  }
 }
 
 @layer base {
