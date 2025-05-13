@@ -17,12 +17,12 @@ export const metadata: Metadata = {
 
 type Props = {
   children: React.ReactNode;
-  breadcrumb: React.ReactNode;
+  // breadcrumb: React.ReactNode;
 };
 
 async function DashboardLayout({
   children,
-  breadcrumb,
+  // breadcrumb,
   user,
 }: Readonly<Props> & WithAuthProps) {
   const cookieStore = await cookies();
@@ -41,7 +41,7 @@ async function DashboardLayout({
         <header className="border-slate-6 flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
-          {breadcrumb}
+
           {/* <Breadcrumb>
             <BreadcrumbList>
               <BreadcrumbItem className="hidden md:block">

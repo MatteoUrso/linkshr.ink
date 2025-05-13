@@ -56,7 +56,7 @@ export const link = pgTable("link", {
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   original_url: text("original_url").notNull(),
-  short_url: text("short_url").notNull(),
+  short_code: text("short_code").notNull().unique(),
   title: text("title"),
   expiration_date: timestamp("expiration_date"),
   is_active: boolean("is_active").default(true),

@@ -1,5 +1,6 @@
 "use client";
 
+import { getFallbackText } from "../_lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -33,8 +34,6 @@ type Props = {
   image?: string | null;
 };
 
-// TODO: Create a getFallbackText function to get the initials from the name
-
 export function NavUser({ name, email, image }: Props) {
   const { isMobile } = useSidebar();
 
@@ -62,7 +61,9 @@ export function NavUser({ name, email, image }: Props) {
               <Avatar className="h-8 w-8 rounded-lg">
                 {image ? <AvatarImage src={image} alt={name} /> : null}
 
-                <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                <AvatarFallback className="rounded-lg uppercase">
+                  {getFallbackText(name)}
+                </AvatarFallback>
               </Avatar>
               <div className="grid flex-1 text-left text-sm leading-tight">
                 <span className="truncate font-semibold">{name}</span>
@@ -81,7 +82,9 @@ export function NavUser({ name, email, image }: Props) {
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
                   {image ? <AvatarImage src={image} alt={name} /> : null}
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarFallback className="rounded-lg uppercase">
+                    {getFallbackText(name)}
+                  </AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
                   <span className="truncate font-semibold">{name}</span>
