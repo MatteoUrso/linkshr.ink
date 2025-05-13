@@ -36,13 +36,16 @@ export interface ButtonProps
 }
 
 const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ className, variant, size, asChild = false, ...props }, ref) => {
+  ({ className, variant, size, asChild = false, disabled, ...props }, ref) => {
     const Comp = asChild ? Slot : "button";
     return (
       <Comp
+        // The `data-disabled` attribute enables correct styles when doing `<Button asChild disabled>`
+        data-disabled={disabled || undefined}
+        {...props}
         className={cn(buttonVariants({ variant, size, className }))}
         ref={ref}
-        {...props}
+        disabled={disabled}
       />
     );
   }
