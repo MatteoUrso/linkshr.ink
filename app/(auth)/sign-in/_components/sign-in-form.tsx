@@ -10,7 +10,9 @@ import {
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { signIn } from "@/lib/auth-client";
+import { cn } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
@@ -22,7 +24,10 @@ const formSchema = z.object({
 
 type FormFields = z.infer<typeof formSchema>;
 
-export function SignInForm() {
+export function SignInForm({
+  className,
+  ...rest
+}: React.ComponentPropsWithoutRef<"form">) {
   const router = useRouter();
 
   const form = useForm<FormFields>({
@@ -34,64 +39,109 @@ export function SignInForm() {
   });
 
   const handleSubmit = async (values: FormFields) => {
-    const { data, error } = await signIn.email(
-      {
-        email: values.email, // user email address
-        password: values.password, // user password -> min 8 characters by default
+    const { error } = await signIn.email(values, {
+      onSuccess: () => {
+        // TODO: Implement a better way to handle the redirect
+        router.replace("/dashboard");
       },
-      {
-        onRequest: () => {
-          //show loading
-        },
-        onSuccess: () => {
-          router.replace("/"); // redirect to the home page
-        },
-        onError: (ctx) => {
-          // display the error message
-          alert(ctx.error.message);
-        },
-      }
-    );
+    });
 
-    console.log("SignIn data", data);
-    console.log("SignIn error", error);
+    if (error?.message) {
+      alert(error.message);
+    }
   };
 
   return (
     <Form {...form}>
       <form
-        className="flex flex-col items-center justify-center"
+        className={cn("flex flex-col gap-6", className)}
         onSubmit={form.handleSubmit(handleSubmit)}
+        {...rest}
       >
-        <FormField
-          control={form.control}
-          name="email"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Email</FormLabel>
-              <FormControl>
-                <Input type="email" placeholder="Email" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
-        <FormField
-          control={form.control}
-          name="password"
-          render={({ field }) => (
-            <FormItem>
-              <FormLabel>Password</FormLabel>
-              <FormControl>
-                <Input type="password" placeholder="Password" {...field} />
-              </FormControl>
-              <FormMessage />
-            </FormItem>
-          )}
-        />
+        <div className="flex flex-col items-center gap-2 text-center">
+          <h1 className="text-2xl font-bold">Login to your account</h1>
+          <p className="text-slate-11 text-sm text-balance">
+            Enter your email below to login to your account
+          </p>
+        </div>
+        <div className="grid gap-6">
+          <FormField
+            control={form.control}
+            name="email"
+            render={({ field }) => (
+              <FormItem>
+                <FormLabel>Email</FormLabel>
+                <FormControl>
+                  <Input type="email" placeholder="Email" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <FormField
+            control={form.control}
+            name="password"
+            render={({ field }) => (
+              <FormItem>
+                <div className="flex items-center">
+                  <FormLabel>Password</FormLabel>{" "}
+                  <Link
+                    href="/forgot-password"
+                    className={cn(
+                      "text-slate-12 ml-auto text-sm",
+                      "hover:underline hover:underline-offset-1",
+                      "focus-visible:ring-slate-8 focus-visible:ring-offset-background focus-visible:ring-1 focus-visible:ring-offset-1 focus-visible:outline-none"
+                    )}
+                  >
+                    Forgot your password?
+                  </Link>
+                </div>
 
-        <button type="submit">SignIn</button>
+                <FormControl>
+                  <Input type="password" placeholder="Password" {...field} />
+                </FormControl>
+                <FormMessage />
+              </FormItem>
+            )}
+          />
+          <button
+            type="submit"
+            className={cn(
+              "w-full",
+              "h-9 px-4 py-2",
+              "focus-visible:ring-primary-ring focus-visible:ring-2 focus-visible:outline-none",
+              "disabled:pointer-events-none disabled:opacity-50",
+              "bg-primary text-primary-foreground",
+              "hover:bg-primary-hover",
+              "active:bg-primary-hover active:brightness-[0.92] active:saturate-[1.1] dark:active:brightness-[1.08]",
+              "inline-flex items-center justify-center gap-2 rounded-md text-sm font-medium whitespace-nowrap transition-colors [&_svg]:pointer-events-none [&_svg]:size-4 [&_svg]:shrink-0"
+            )}
+          >
+            Sign In
+          </button>
+          <div className="after:border-slate-6 relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+            <span className="bg-slate-1 text-slate-11 relative z-10 px-2">
+              Or continue with
+            </span>
+          </div>
+        </div>
+        <div className="text-center text-sm">
+          Don&apos;t have an account?{" "}
+          <Link
+            href="/sign-up"
+            className={cn(
+              "text-blue-11",
+              "hover:underline hover:underline-offset-1",
+              "focus-visible:ring-blue-8 focus-visible:ring-offset-background focus-visible:ring-1 focus-visible:ring-offset-1 focus-visible:outline-none"
+            )}
+          >
+            Sign up
+          </Link>
+        </div>
       </form>
     </Form>
   );
 }
+
+// brightness(0.92) saturate(1.1)
+// dark:brightness(1.08)

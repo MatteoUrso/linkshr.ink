@@ -54,6 +54,19 @@
   --green-10: #2b9a66;
   --green-11: #218358;
   --green-12: #193b2d;
+
+  --blue-1: #fbfdff;
+  --blue-2: #f4faff;
+  --blue-3: #e6f4fe;
+  --blue-4: #d5efff;
+  --blue-5: #c2e5ff;
+  --blue-6: #acd8fc;
+  --blue-7: #8ec8f6;
+  --blue-8: #5eb1ef;
+  --blue-9: #0090ff;
+  --blue-10: #0588f0;
+  --blue-11: #0d74ce;
+  --blue-12: #113264;
 }
 
 .dark {
@@ -108,20 +121,39 @@
   --green-10: #33b074;
   --green-11: #3dd68c;
   --green-12: #b1f1cb;
+
+  --blue-1: #0d1520;
+  --blue-2: #111927;
+  --blue-3: #0d2847;
+  --blue-4: #003362;
+  --blue-5: #004074;
+  --blue-6: #104d87;
+  --blue-7: #205d9e;
+  --blue-8: #2870bd;
+  --blue-9: #0090ff;
+  --blue-10: #3b9eff;
+  --blue-11: #70b8ff;
+  --blue-12: #c2e6ff;
 }
 
 @theme inline {
   --color-background: var(--slate-1);
   --color-foreground: var(--slate-12);
 
+  --color-card: var(--slate-2);
+  --color-card-foreground: var(--slate-12);
+
   --color-muted: var(--slate-2);
   --color-muted-foreground: var(--slate-11);
 
   --color-primary: var(--indigo-9);
   --color-primary-foreground: #ffffff;
+  --color-primary-hover: var(--indigo-10);
+  --color-primary-ring: var(--indigo-8);
 
   --color-label-disabled: var(--slate-9);
 
+  --color-border-not-interactive: var(--slate-6);
   --color-border-interactive: var(--slate-7);
 
   --color-ring: var(--slate-8);
@@ -131,12 +163,54 @@
   --color-destructive: var(--red-9);
   --color-success: var(--green-9);
 
+  --color-slate-1: var(--slate-1);
+  --color-slate-2: var(--slate-2);
+  --color-slate-3: var(--slate-3);
+  --color-slate-4: var(--slate-4);
+  --color-slate-5: var(--slate-5);
+  --color-slate-6: var(--slate-6);
+  --color-slate-7: var(--slate-7);
+  --color-slate-8: var(--slate-8);
+  --color-slate-9: var(--slate-9);
+  --color-slate-10: var(--slate-10);
+  --color-slate-11: var(--slate-11);
+  --color-slate-12: var(--slate-12);
+
+  --color-indigo-1: var(--indigo-1);
+  --color-indigo-2: var(--indigo-2);
+  --color-indigo-3: var(--indigo-3);
+  --color-indigo-4: var(--indigo-4);
+  --color-indigo-5: var(--indigo-5);
+  --color-indigo-6: var(--indigo-6);
+  --color-indigo-7: var(--indigo-7);
+  --color-indigo-8: var(--indigo-8);
+  --color-indigo-9: var(--indigo-9);
+  --color-indigo-10: var(--indigo-10);
+  --color-indigo-11: var(--indigo-11);
+  --color-indigo-12: var(--indigo-12);
+
+  --color-blue-1: var(--blue-1);
+  --color-blue-2: var(--blue-2);
+  --color-blue-3: var(--blue-3);
+  --color-blue-4: var(--blue-4);
+  --color-blue-5: var(--blue-5);
+  --color-blue-6: var(--blue-6);
+  --color-blue-7: var(--blue-7);
+  --color-blue-8: var(--blue-8);
+  --color-blue-9: var(--blue-9);
+  --color-blue-10: var(--blue-10);
+  --color-blue-11: var(--blue-11);
+  --color-blue-12: var(--blue-12);
+
   --font-inter: var(--font-inter);
   --font-jetbrains: var(--font-jetbrains);
   --font-sora: var(--font-sora);
 }
 
 @layer base {
+  * {
+    @apply outline-slate-8;
+  }
   body {
     @apply bg-background text-foreground font-inter;
   }
