@@ -19,8 +19,9 @@ export default function Page() {
             href="/"
             className={cn(
               "flex items-center gap-2 font-medium",
-              "focus-visible:ring-slate-8 focus-visible:ring-offset-background focus-visible:ring-1 focus-visible:ring-offset-1 focus-visible:outline-none"
+              "focus-visible:ring-slate-8 focus-visible:ring-offset-slate-1 focus-visible:ring-1 focus-visible:ring-offset-1 focus-visible:outline-none"
             )}
+            aria-label="LinkShrink Home"
           >
             <div className="bg-indigo-9 flex h-6 w-6 items-center justify-center rounded-md text-white">
               <ExternalLink className="size-4" />
