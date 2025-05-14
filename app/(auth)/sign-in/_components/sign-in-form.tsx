@@ -61,6 +61,7 @@ export function SignInForm({
       <form
         className={cn("flex flex-col gap-6", className)}
         onSubmit={form.handleSubmit(handleSubmit)}
+        noValidate
         {...rest}
       >
         <div className="flex flex-col items-center gap-2 text-center">
@@ -81,6 +82,8 @@ export function SignInForm({
                     type="email"
                     placeholder="Email"
                     autoComplete="on"
+                    required
+                    aria-required="true"
                     {...field}
                   />
                 </FormControl>
@@ -111,6 +114,8 @@ export function SignInForm({
                   <PasswordInput
                     placeholder="Password"
                     autoComplete="on"
+                    required
+                    aria-required="true"
                     {...field}
                   />
                 </FormControl>
@@ -122,13 +127,28 @@ export function SignInForm({
             type="submit"
             className="w-full"
             disabled={form.formState.isSubmitting}
+            aria-busy={form.formState.isSubmitting}
           >
             {form.formState.isSubmitting ? (
-              <Loader2 className="animate-spin" />
-            ) : null}
-            Sign in
+              <>
+                <Loader2 className="mr-2 animate-spin" aria-hidden="true" />
+                <span>Signing in...</span>
+              </>
+            ) : (
+              "Sign in"
+            )}
           </Button>
-          <div className="after:border-slate-6 relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+          {/* <div className="after:border-slate-6 relative text-center text-sm after:absolute after:inset-0 after:top-1/2 after:z-0 after:flex after:items-center after:border-t">
+            <span className="bg-slate-1 text-slate-11 relative z-10 px-2">
+              Or continue with
+            </span>
+          </div> */}
+          <div
+            className="relative my-4 text-center"
+            role="separator"
+            aria-orientation="horizontal"
+          >
+            <hr className="border-slate-6 absolute top-1/2 w-full" />
             <span className="bg-slate-1 text-slate-11 relative z-10 px-2">
               Or continue with
             </span>
@@ -154,6 +174,7 @@ export function SignInForm({
               "hover:underline hover:underline-offset-1",
               "focus-visible:ring-slate-8 focus-visible:ring-offset-slate-1 focus-visible:ring-1 focus-visible:ring-offset-1 focus-visible:outline-none"
             )}
+            aria-label="Sign up for a new account"
           >
             Sign up
           </Link>
