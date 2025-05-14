@@ -1,5 +1,4 @@
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
+import { getAuthSession } from "@/lib//auth-session";
 import { redirect } from "next/navigation";
 
 export type WithAuthProps = {
@@ -31,9 +30,7 @@ export function withAuth<P extends WithAuthProps>(
   return async function AuthenticatedComponent(
     props: Omit<P, keyof WithAuthProps>
   ) {
-    const session = await auth.api.getSession({
-      headers: await headers(),
-    });
+    const session = await getAuthSession();
 
     if (!session) {
       redirect("/sign-in");
