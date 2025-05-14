@@ -1,4 +1,6 @@
 import { NavMain } from "./nav-main";
+import { NavSecondary } from "./nav-secondary";
+import { NavTools } from "./nav-tools";
 import { NavUser } from "./nav-user";
 import {
   Sidebar,
@@ -41,6 +43,8 @@ export function AppSidebar({ name, email, image, ...props }: Props) {
       </SidebarHeader>
       <SidebarContent>
         <NavMain />
+        <NavTools />
+        <NavSecondary className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
         <NavUser name={name} email={email} image={image} />

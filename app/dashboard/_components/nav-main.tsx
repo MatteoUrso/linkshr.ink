@@ -5,6 +5,7 @@ import {
 } from "@/components/ui/collapsible";
 import {
   SidebarGroup,
+  SidebarGroupLabel,
   SidebarMenu,
   SidebarMenuAction,
   SidebarMenuButton,
@@ -27,20 +28,20 @@ const items = [
     title: "Links",
     icon: LinkIcon,
     href: "/dashboard/links",
-    subItems: [
-      {
-        title: "All Links",
-        href: "/dashboard/links",
-      },
-      {
-        title: "Featured Links",
-        href: "/dashboard/links/featured",
-      },
-      {
-        title: "Archived Links",
-        href: "/dashboard/links/archived",
-      },
-    ],
+    // subItems: [
+    //   {
+    //     title: "All Links",
+    //     href: "/dashboard/links",
+    //   },
+    //   {
+    //     title: "Featured Links",
+    //     href: "/dashboard/links/featured",
+    //   },
+    //   {
+    //     title: "Archived Links",
+    //     href: "/dashboard/links/archived",
+    //   },
+    // ],
   },
   {
     title: "Analytics",
@@ -51,20 +52,20 @@ const items = [
     title: "Campaigns",
     icon: MegaphoneIcon,
     href: "/dashboard/campaigns",
-    subItems: [
-      {
-        title: "Active Campaigns",
-        href: "/dashboard/campaigns/active",
-      },
-      {
-        title: "Campaign Builder",
-        href: "/dashboard/campaigns/builder",
-      },
-      {
-        title: "Results",
-        href: "/dashboard/campaigns/results",
-      },
-    ],
+    // subItems: [
+    //   {
+    //     title: "Active Campaigns",
+    //     href: "/dashboard/campaigns/active",
+    //   },
+    //   {
+    //     title: "Campaign Builder",
+    //     href: "/dashboard/campaigns/builder",
+    //   },
+    //   {
+    //     title: "Results",
+    //     href: "/dashboard/campaigns/results",
+    //   },
+    // ],
   },
   {
     title: "QR Codes",
@@ -76,6 +77,7 @@ const items = [
 export function NavMain() {
   return (
     <SidebarGroup>
+      <SidebarGroupLabel>Main Navigation</SidebarGroupLabel>
       <SidebarMenu>
         {items.map((item) => (
           <Collapsible key={item.title} asChild>
@@ -86,7 +88,7 @@ export function NavMain() {
                   <span>{item.title}</span>
                 </Link>
               </SidebarMenuButton>
-              {item.subItems?.length ? (
+              {/* {item.subItems?.length ? (
                 <>
                   <CollapsibleTrigger asChild>
                     <SidebarMenuAction className="data-[state=open]:rotate-90">
@@ -108,7 +110,7 @@ export function NavMain() {
                     </SidebarMenuSub>
                   </CollapsibleContent>
                 </>
-              ) : null}
+              ) : null} */}
             </SidebarMenuItem>
           </Collapsible>
         ))}

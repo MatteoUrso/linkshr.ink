@@ -1,4 +1,5 @@
 import { AppSidebar } from "./_components/app-sidebar";
+import { ThemeSwitcher } from "@/components/theme-switcher";
 import { Separator } from "@/components/ui/separator";
 import {
   SidebarInset,
@@ -41,6 +42,7 @@ async function DashboardLayout({
         <header className="border-slate-6 flex h-16 shrink-0 items-center gap-2 border-b px-4">
           <SidebarTrigger className="-ml-1" />
           <Separator orientation="vertical" className="mr-2 h-4" />
+          <ThemeSwitcher className="ml-auto" />
 
           {/* <Breadcrumb>
             <BreadcrumbList>
