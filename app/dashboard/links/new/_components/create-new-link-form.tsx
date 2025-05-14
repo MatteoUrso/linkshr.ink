@@ -17,7 +17,7 @@ import { Input } from "@/components/ui/input";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { startTransition, useActionState, useEffect, useRef } from "react";
-import { useForm } from "react-hook-form";
+import { FieldPath, useForm } from "react-hook-form";
 import { z } from "zod";
 
 type FormFields = z.infer<typeof FormSchema>;
@@ -40,9 +40,14 @@ export function CreateNewLinkForm() {
   useEffect(() => {
     if (!formState) return;
     if (formState.status === "error") {
-      console.log("Error:", formState.message);
+      formState.errors?.forEach((error) => {
+        form.setError(error.field as FieldPath<FormFields>, {
+          message: error.message,
+          type: "manual",
+        });
+      });
     }
-  }, [formState]);
+  }, [formState, form]);
 
   return (
     <Form {...form}>
@@ -91,17 +96,17 @@ export function CreateNewLinkForm() {
           </div>
         </fieldset>
 
-        {formState?.status === "error" &&
+        {/* {formState?.status === "error" &&
           (!formState.errors || formState.errors.length === 0) && (
             <div
               role="alert"
               aria-live="assertive"
               aria-atomic="true"
-              className="text-red-500"
+              className="text-red-11"
             >
               {formState.message}
             </div>
-          )}
+          )} */}
 
         <Button
           type="submit"

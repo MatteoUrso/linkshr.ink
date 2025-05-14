@@ -35,13 +35,13 @@ export async function createLink(_: State, formData: FormData): Promise<State> {
         status: "error",
         message:
           "The short code already exists. Please choose a different one.",
-        // errors: [
-        //   {
-        //     field: "short_code",
-        //     message:
-        //       "The short code already exists. Please choose a different one.",
-        //   },
-        // ],
+        errors: [
+          {
+            field: "short_code",
+            message:
+              "The short code already exists. Please choose a different one.",
+          },
+        ],
       };
     }
 
