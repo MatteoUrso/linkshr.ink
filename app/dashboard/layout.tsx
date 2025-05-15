@@ -11,10 +11,7 @@ import type { Metadata } from "next";
 import { cookies } from "next/headers";
 
 export const metadata: Metadata = {
-  title: {
-    default: "Dashboard - LinkShrink",
-    template: "%s - LinkShrink",
-  },
+  title: "Dashboard",
   description:
     "Manage your shortened URLs, view detailed analytics, and access powerful link management tools in your personal LinkShrink dashboard.",
 };

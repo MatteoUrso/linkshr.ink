@@ -28,7 +28,7 @@ export const ThemeSwitcher = ({ className, ...rest }: Props) => {
   return (
     <div
       className={cn(
-        "bg-slate-1 ring-slate-7 relative isolate flex h-8 rounded-full p-1 ring-1",
+        "bg-slate-1 ring-slate-7 relative isolate flex h-8 gap-1 rounded-full p-1 ring-1",
         className
       )}
       {...rest}
@@ -42,7 +42,7 @@ export const ThemeSwitcher = ({ className, ...rest }: Props) => {
           <button
             type="button"
             key={key}
-            className="relative h-6 w-6 rounded-full"
+            className="hover:bg-slate-4 relative h-6 w-6 rounded-full focus-visible:ring-1 focus-visible:ring-red-500"
             onClick={() => setTheme(key as "light" | "dark" | "system")}
             aria-label={label}
           >
