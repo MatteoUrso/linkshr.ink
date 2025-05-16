@@ -100,8 +100,8 @@ export function SignInForm({
               <FormLabel>Email</FormLabel>
               <FormControl>
                 <Input
+                  placeholder="Enter your email"
                   type="email"
-                  placeholder="Email"
                   autoComplete="email"
                   required
                   aria-required="true"
@@ -133,8 +133,11 @@ export function SignInForm({
 
               <FormControl>
                 <PasswordInput
-                  placeholder="Password"
+                  placeholder="Enter your password"
                   autoComplete="current-password"
+                  autoCapitalize="none"
+                  autoCorrect="off"
+                  spellCheck="false"
                   required
                   aria-required="true"
                   {...field}

@@ -80,6 +80,10 @@ export function CreateNewLinkForm() {
                   <FormControl>
                     <Input
                       placeholder="https://example.com/your-long-url"
+                      type="url"
+                      autoCapitalize="none"
+                      autoCorrect="off"
+                      spellCheck="false"
                       required
                       aria-required="true"
                       {...field}
