@@ -1,4 +1,11 @@
-import { SignInCard } from "./_components/sign-in-card";
+import { SignInForm } from "./_components/sign-in-form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { ExternalLink } from "lucide-react";
 import type { Metadata } from "next";
@@ -17,7 +24,7 @@ export default function Page() {
         <Link
           href="/"
           className={cn(
-            "flex items-center gap-2 self-center font-medium",
+            "font-sora flex items-center gap-2 self-center font-medium",
             "focus-visible:ring-slate-8 focus-visible:ring-1 focus-visible:outline-none"
           )}
           aria-label="LinkShrink Home"
@@ -27,7 +34,20 @@ export default function Page() {
           </div>
           LinkShrink
         </Link>
-        <SignInCard />
+        <Card>
+          <CardHeader className="text-center">
+            <CardTitle className="font-sora text-xl">
+              <h1>Welcome back</h1>
+            </CardTitle>
+            {/* <CardDescription>Login with your Google account</CardDescription> */}
+            <CardDescription>
+              Enter your email and password to access your account.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <SignInForm />
+          </CardContent>
+        </Card>
       </div>
     </main>
   );

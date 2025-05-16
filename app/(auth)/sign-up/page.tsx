@@ -1,4 +1,11 @@
-import { SignUpCard } from "./_components/sign-up-card";
+import { SignUpForm } from "./_components/sign-up-form";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import { cn } from "@/lib/utils";
 import { ExternalLink } from "lucide-react";
 import type { Metadata } from "next";
@@ -17,7 +24,7 @@ export default function Page() {
         <Link
           href="/"
           className={cn(
-            "flex items-center gap-2 self-center font-medium",
+            "font-sora flex items-center gap-2 self-center font-medium",
             "focus-visible:ring-slate-8 focus-visible:ring-1 focus-visible:outline-none"
           )}
           aria-label="LinkShrink Home"
@@ -27,7 +34,19 @@ export default function Page() {
           </div>
           LinkShrink
         </Link>
-        <SignUpCard />
+        <Card>
+          <CardHeader className="text-center">
+            <CardTitle className="font-sora text-xl">
+              <h1>Create your account</h1>
+            </CardTitle>
+            <CardDescription>
+              Enter your email and password to create a new account.
+            </CardDescription>
+          </CardHeader>
+          <CardContent>
+            <SignUpForm />
+          </CardContent>
+        </Card>
       </div>
     </main>
   );

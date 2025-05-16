@@ -5,6 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
+import { cn } from "@/lib/utils";
 import { WithAuthProps, withAuth } from "@/lib/with-auth";
 import { TrendingUpIcon } from "lucide-react";
 
@@ -25,15 +26,21 @@ function Page({ user }: WithAuthProps) {
       {/* Key metrics */}
       <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
-          <CardHeader className="pb-2">
+          <CardHeader className="relative">
             <CardDescription>Total clicks today</CardDescription>
             <CardTitle className="text-2xl tabular-nums">1,234</CardTitle>
-            {/* <div className="absolute right-4 top-4">
-            <Badge variant="outline" className="flex gap-1 rounded-lg text-xs">
-              <TrendingUpIcon className="size-3" />
-              +12.5%
-            </Badge>
-          </div> */}
+            <div className="absolute top-4 right-4">
+              <div
+                className={cn(
+                  "focus:ring-slate-8 border-slate-6 inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:ring-2 focus:ring-offset-2 focus:outline-none",
+                  "text-slate-12",
+                  "flex gap-1 rounded-lg text-xs"
+                )}
+              >
+                <TrendingUpIcon className="size-3" />
+                +12.5%
+              </div>
+            </div>
           </CardHeader>
           <CardFooter className="flex-col items-start gap-1 text-sm">
             <div className="line-clamp-1 flex gap-2 font-medium">
