@@ -1,6 +1,6 @@
 "use client";
 
-import { Icons } from "@/components/icons";
+// import { Icons } from "@/components/icons";
 import { PasswordInput } from "@/components/password-input";
 import { Button } from "@/components/ui/button";
 import {
@@ -71,6 +71,27 @@ export function SignInForm({
         noValidate
         {...rest}
       >
+        {/* <Button
+          variant="outline"
+          className="w-full"
+          onClick={(e) => {
+            e.preventDefault();
+            console.log("Google login");
+          }}
+        >
+          <Icons.google aria-hidden="true" />
+          Login with Google
+        </Button>
+        <div
+          className="relative my-4 text-center"
+          role="separator"
+          aria-orientation="horizontal"
+        >
+          <hr className="border-slate-6 absolute top-1/2 w-full" />
+          <span className="bg-slate-1 text-slate-11 relative z-10 px-2 text-sm">
+            Or continue with
+          </span>
+        </div> */}
         <FormField
           control={form.control}
           name="email"
@@ -149,27 +170,6 @@ export function SignInForm({
           ) : (
             "Sign in"
           )}
-        </Button>
-        <div
-          className="relative my-4 text-center"
-          role="separator"
-          aria-orientation="horizontal"
-        >
-          <hr className="border-slate-6 absolute top-1/2 w-full" />
-          <span className="bg-slate-1 text-slate-11 relative z-10 px-2">
-            Or continue with
-          </span>
-        </div>
-        <Button
-          variant="outline"
-          className="w-full"
-          onClick={(e) => {
-            e.preventDefault();
-            console.log("Google login");
-          }}
-        >
-          <Icons.google aria-hidden="true" />
-          Login with Google
         </Button>
         <div className="text-center text-sm">
           Don&apos;t have an account?{" "}
