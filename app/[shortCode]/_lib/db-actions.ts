@@ -10,18 +10,9 @@ import "server-only";
  */
 export async function getLinkByShortCode(shortCode: string) {
   const links = await db
-    .select({
-      id: link.id,
-      original_url: link.original_url,
-      title: link.title,
-      utm_source: link.utm_source,
-      utm_medium: link.utm_medium,
-      utm_campaign: link.utm_campaign,
-      utm_term: link.utm_term,
-      utm_content: link.utm_content,
-    })
+    .select()
     .from(link)
-    .where(eq(link.short_code, shortCode))
+    .where(eq(link.shortCode, shortCode))
     .limit(1);
 
   return links[0] || null;

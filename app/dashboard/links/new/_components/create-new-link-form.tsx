@@ -34,7 +34,7 @@ export function CreateNewLinkForm() {
   const form = useForm<FormFields>({
     resolver: zodResolver(FormSchema),
     defaultValues: {
-      original_url: "",
+      originalUrl: "",
     },
   });
 
@@ -71,7 +71,7 @@ export function CreateNewLinkForm() {
           <div className="bg-slate-2 border-slate-6 flex flex-col gap-4 rounded-lg border p-6">
             <FormField
               control={form.control}
-              name="original_url"
+              name="originalUrl"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
@@ -90,6 +90,7 @@ export function CreateNewLinkForm() {
                       spellCheck="false"
                       required
                       aria-required="true"
+                      autoFocus
                       {...field}
                     />
                   </FormControl>
@@ -122,7 +123,7 @@ export function CreateNewLinkForm() {
             />
             <FormField
               control={form.control}
-              name="short_code"
+              name="shortCode"
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel>
@@ -167,7 +168,7 @@ export function CreateNewLinkForm() {
           <div className="bg-slate-2 border-slate-6 flex flex-col gap-4 rounded-lg border p-6">
             <FormField
               control={form.control}
-              name="utm_source"
+              name="utmSource"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Source</FormLabel>
@@ -188,7 +189,7 @@ export function CreateNewLinkForm() {
             />
             <FormField
               control={form.control}
-              name="utm_medium"
+              name="utmMedium"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Medium</FormLabel>
@@ -206,7 +207,7 @@ export function CreateNewLinkForm() {
             />
             <FormField
               control={form.control}
-              name="utm_campaign"
+              name="utmCampaign"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Campaign</FormLabel>
@@ -226,7 +227,7 @@ export function CreateNewLinkForm() {
             />
             <FormField
               control={form.control}
-              name="utm_term"
+              name="utmTerm"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Term</FormLabel>
@@ -246,7 +247,7 @@ export function CreateNewLinkForm() {
             />
             <FormField
               control={form.control}
-              name="utm_content"
+              name="utmContent"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>Content</FormLabel>

@@ -3,11 +3,11 @@ import { LINK_CONSTRAINTS } from "./constants";
 import { z } from "zod";
 
 export const FormSchema = z.object({
-  original_url: z
+  originalUrl: z
     .string()
     .min(1, { message: "Original URL is required" })
     .url({ message: "Please enter a valid URL including http:// or https://" }),
-  short_code: z
+  shortCode: z
     .string()
     .max(LINK_CONSTRAINTS.SHORTCODE_MAX_LENGTH, {
       message: `Short code must be at most ${LINK_CONSTRAINTS.SHORTCODE_MAX_LENGTH} characters long`,
@@ -45,35 +45,35 @@ export const FormSchema = z.object({
   //   .nullable(),
 
   // UTM Parameters
-  utm_source: z
+  utmSource: z
     .string()
     .max(LINK_CONSTRAINTS.UTM_SOURCE_MAX_LENGTH, {
       message: `UTM Source must be at most ${LINK_CONSTRAINTS.UTM_SOURCE_MAX_LENGTH} characters long`,
     })
     .optional()
     .transform((val) => (val === "" ? undefined : val)), // Transform empty string to undefined
-  utm_medium: z
+  utmMedium: z
     .string()
     .max(LINK_CONSTRAINTS.UTM_MEDIUM_MAX_LENGTH, {
       message: `UTM Medium must be at most ${LINK_CONSTRAINTS.UTM_MEDIUM_MAX_LENGTH} characters long`,
     })
     .optional()
     .transform((val) => (val === "" ? undefined : val)), // Transform empty string to undefined
-  utm_campaign: z
+  utmCampaign: z
     .string()
     .max(LINK_CONSTRAINTS.UTM_CAMPAIGN_MAX_LENGTH, {
       message: `UTM Campaign must be at most ${LINK_CONSTRAINTS.UTM_CAMPAIGN_MAX_LENGTH} characters long`,
     })
     .optional()
     .transform((val) => (val === "" ? undefined : val)), // Transform empty string to undefined
-  utm_content: z
+  utmContent: z
     .string()
     .max(LINK_CONSTRAINTS.UTM_CONTENT_MAX_LENGTH, {
       message: `UTM Content must be at most ${LINK_CONSTRAINTS.UTM_CONTENT_MAX_LENGTH} characters long`,
     })
     .optional()
     .transform((val) => (val === "" ? undefined : val)), // Transform empty string to undefined
-  utm_term: z
+  utmTerm: z
     .string()
     .max(LINK_CONSTRAINTS.UTM_TERM_MAX_LENGTH, {
       message: `UTM Term must be at most ${LINK_CONSTRAINTS.UTM_TERM_MAX_LENGTH} characters long`,

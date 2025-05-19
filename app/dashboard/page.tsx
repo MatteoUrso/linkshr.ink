@@ -11,7 +11,7 @@ import { TrendingUpIcon } from "lucide-react";
 
 function Page({ user }: WithAuthProps) {
   return (
-    <>
+    <div className="container mx-auto px-4 py-6">
       {/* Welcome section */}
       <section className="flex items-start justify-between">
         <div>
@@ -52,7 +52,7 @@ function Page({ user }: WithAuthProps) {
           </CardFooter>
         </Card>
       </div>
-    </>
+    </div>
   );
 }
 

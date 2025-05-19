@@ -1,7 +1,8 @@
+import { createClick } from "./_lib/actions";
 import { getLinkByShortCode } from "./_lib/db-actions";
 import type { Metadata } from "next";
+import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
-// https://nextjs.org/docs/app/api-reference/functions/after
 import { after } from "next/server";
 
 type Props = {
@@ -23,7 +24,7 @@ export async function generateMetadata({
 
   return {
     title: linkData.title ? `${linkData.title}` : "Redirect",
-    description: `You're being redirected to ${new URL(linkData.original_url).hostname}`,
+    description: `You're being redirected to ${new URL(linkData.originalUrl).hostname}`,
     // openGraph: {
     //   title: linkData.title || "LinkShrink Redirect",
     //   description: `Redirecting to ${new URL(linkData.original_url).hostname}`,
@@ -45,16 +46,14 @@ export default async function Page({ params }: Props) {
 
   // 4. Handle password protection (future feature)
 
-  // 5. Increment click count asynchronously (future feature)
-
   // 6. Build the final URL with UTM parameters if present
-  const originalUrl = new URL(linkData.original_url);
+  const originalUrl = new URL(linkData.originalUrl);
   const utmParams = {
-    utm_source: linkData.utm_source,
-    utm_medium: linkData.utm_medium,
-    utm_campaign: linkData.utm_campaign,
-    utm_term: linkData.utm_term,
-    utm_content: linkData.utm_content,
+    utm_source: linkData.utmSource,
+    utm_medium: linkData.utmMedium,
+    utm_campaign: linkData.utmCampaign,
+    utm_term: linkData.utmTerm,
+    utm_content: linkData.utmContent,
   };
 
   // Add UTM parameters to the URL if they exist
@@ -64,8 +63,16 @@ export default async function Page({ params }: Props) {
     }
   });
 
-  after(() => {
-    console.log("Redirecting to:", originalUrl.toString());
+  const headersList = await headers();
+
+  // Get the user agent from the request headers
+  const userAgent = headersList.get("user-agent");
+
+  // 5. Increment click count
+  // https://nextjs.org/docs/app/api-reference/functions/after
+  after(async () => {
+    // Execute after the page is rendered and sent to the user
+    await createClick(linkData.id, userAgent);
   });
 
   // 7. Redirect to the original URL

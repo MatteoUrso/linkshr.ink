@@ -16,11 +16,7 @@ export default function Page() {
     <div className="container mx-auto px-4 py-6">
       {/* Header with navigation */}
       <div className="mb-8">
-        <Button
-          asChild
-          variant="linkNeutral"
-          className="mb-6 h-fit w-fit px-0 py-0"
-        >
+        <Button asChild variant="linkNeutral" className="mb-6">
           <Link href="/dashboard/links">
             <ChevronLeft className="h-4 w-4" />
             <span>Back to Links</span>
@@ -70,7 +66,7 @@ export default function Page() {
             <Button
               asChild
               variant="link"
-              className="h-fit w-fit gap-1 px-0 py-0"
+              className="focus-visible:ring-offset-slate-1 h-fit w-fit gap-1 px-0 py-0 focus-visible:ring-offset-8"
             >
               <Link href="/help/link-best-practices">
                 View link best practices

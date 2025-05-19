@@ -55,16 +55,16 @@ export const link = pgTable("link", {
   userId: text("user_id")
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
-  original_url: text("original_url").notNull(),
-  short_code: text("short_code").notNull().unique(),
+  originalUrl: text("original_url").notNull(),
+  shortCode: text("short_code").notNull().unique(),
   title: text("title"),
 
   // UTM Parameters
-  utm_source: text("utm_source"),
-  utm_medium: text("utm_medium"),
-  utm_campaign: text("utm_campaign"),
-  utm_term: text("utm_term"),
-  utm_content: text("utm_content"),
+  utmSource: text("utm_source"),
+  utmMedium: text("utm_medium"),
+  utmCampaign: text("utm_campaign"),
+  utmTerm: text("utm_term"),
+  utmContent: text("utm_content"),
 
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
@@ -75,6 +75,13 @@ export const click = pgTable("click", {
   linkId: uuid("link_id")
     .notNull()
     .references(() => link.id, { onDelete: "cascade" }),
+
+  browserName: text("browser_name"),
+  browserVersion: text("browser_version"),
+  deviceType: text("device_type"),
+  operatingSystem: text("operating_system"),
+
+  userAgent: text("user_agent"),
 
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
