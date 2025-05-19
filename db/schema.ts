@@ -58,8 +58,13 @@ export const link = pgTable("link", {
   original_url: text("original_url").notNull(),
   short_code: text("short_code").notNull().unique(),
   title: text("title"),
-  expiration_date: timestamp("expiration_date"),
-  is_active: boolean("is_active").default(true),
+
+  // UTM Parameters
+  utm_source: text("utm_source"),
+  utm_medium: text("utm_medium"),
+  utm_campaign: text("utm_campaign"),
+  utm_term: text("utm_term"),
+  utm_content: text("utm_content"),
 
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),

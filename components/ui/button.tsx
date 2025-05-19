@@ -14,6 +14,9 @@ const buttonVariants = cva(
           "border border-slate-7 bg-background hover:bg-slate-9 hover:text-white focus-visible:ring-slate-8 focus-visible:ring-2 focus-visible:outline-none",
         ghost:
           "text-slate-12 hover:bg-slate-9 hover:text-white focus-visible:ring-slate-8 focus-visible:ring-2 focus-visible:outline-none",
+        link: "text-blue-11 hover:text-blue-12 focus-visible:ring-slate-8 focus-visible:ring-1 focus-visible:outline-none",
+        linkNeutral:
+          "text-slate-11 hover:text-slate-12 focus-visible:ring-slate-8 focus-visible:ring-1 focus-visible:outline-none",
       },
       size: {
         default: "h-9 px-4 py-2",

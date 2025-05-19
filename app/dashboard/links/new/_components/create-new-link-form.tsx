@@ -1,6 +1,7 @@
 "use client";
 
 import { createLink } from "../_lib/actions";
+import { LINK_CONSTRAINTS } from "../_lib/constants";
 import { FormSchema } from "../_lib/form-schema";
 import { State } from "../_types/state";
 import { Button } from "@/components/ui/button";
@@ -21,6 +22,7 @@ import { FieldPath, useForm } from "react-hook-form";
 import { z } from "zod";
 
 type FormFields = z.infer<typeof FormSchema>;
+
 export function CreateNewLinkForm() {
   const [formState, formAction, formPending] = useActionState<State, FormData>(
     createLink,
@@ -33,7 +35,14 @@ export function CreateNewLinkForm() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       original_url: "",
-      // short_code: "",
+      short_code: "",
+      title: "",
+
+      utm_source: "",
+      utm_medium: "",
+      utm_campaign: "",
+      utm_content: "",
+      utm_term: "",
     },
   });
 
@@ -66,15 +75,18 @@ export function CreateNewLinkForm() {
       >
         {/* Essential Information */}
         <fieldset className="m-0 border-0 p-0">
-          <legend className="mb-0.5 text-xl font-semibold">Link Details</legend>
-          <div className="bg-slate-2 border-slate-6 space-y-4 rounded-lg border p-6">
+          <legend className="mb-1 text-xl font-semibold">Link Details</legend>
+          <div className="bg-slate-2 border-slate-6 flex flex-col gap-4 rounded-lg border p-6">
             <FormField
               control={form.control}
               name="original_url"
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Original URL <span aria-label="required">*</span>
+                    Original URL
+                    <span aria-label="required" className="text-red-11 ml-1">
+                      *
+                    </span>
                     <span className="sr-only">(required)</span>
                   </FormLabel>
                   <FormControl>
@@ -89,11 +101,174 @@ export function CreateNewLinkForm() {
                       {...field}
                     />
                   </FormControl>
-                  <FormDescription className="sr-only">
-                    Enter the full URL that you want to shorten, including
-                    http:// or https://
+                  <FormMessage role="alert" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="title"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>
+                    Title
+                    <span className="sr-only">(optional)</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="My Marketing Campaign"
+                      maxLength={LINK_CONSTRAINTS.TITLE_MAX_LENGTH}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Internal name to identify this link in your dashboard
                   </FormDescription>
-                  <FormMessage />
+                  <FormMessage role="alert" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="short_code"
+              render={({ field }) => (
+                <FormItem className="w-full">
+                  <FormLabel>
+                    Custom Slug
+                    <span className="sr-only">(optional)</span>
+                  </FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="random-code"
+                      type="text"
+                      autoCapitalize="none" // Prevent the keyboard from opening in uppercase
+                      autoCorrect="off" // Prevent the keyboard from opening in suggestions
+                      spellCheck="false" // Prevent the keyboard from opening in suggestions
+                      maxLength={LINK_CONSTRAINTS.SHORTCODE_MAX_LENGTH}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    Leave blank for an auto-generated slug.
+                  </FormDescription>
+                  {/* Anteprima del link - qui sotto */}
+                  {/* <div className="bg-slate-3 mt-2 flex items-center rounded-md px-3 py-2 text-sm">
+                    <span className="text-slate-11 font-medium">
+                      linkshr.ink/
+                    </span>
+                    <span className="font-jetbrains text-slate-12">
+                      {field.value || (
+                        <span className="text-slate-9">random-code</span>
+                      )}
+                    </span>
+                  </div> */}
+                  <FormMessage role="alert" />
+                </FormItem>
+              )}
+            />
+          </div>
+        </fieldset>
+
+        {/* UTM Parameters */}
+        <fieldset className="m-0 border-0 p-0">
+          <legend className="mb-1 text-xl font-semibold">UTM Parameters</legend>
+          <div className="bg-slate-2 border-slate-6 flex flex-col gap-4 rounded-lg border p-6">
+            <FormField
+              control={form.control}
+              name="utm_source"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Source</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="google, facebook, newsletter, twitter"
+                      maxLength={LINK_CONSTRAINTS.UTM_SOURCE_MAX_LENGTH}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    The source of the traffic. E.g., google, facebook,
+                    newsletter, twitter.
+                  </FormDescription>
+                  <FormMessage role="alert" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="utm_medium"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Medium</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="cpc, banner, email, social, organic"
+                      maxLength={LINK_CONSTRAINTS.UTM_MEDIUM_MAX_LENGTH}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>The medium of the traffic.</FormDescription>
+                  <FormMessage role="alert" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="utm_campaign"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Campaign</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="summer_sale, product_launch, black_friday"
+                      maxLength={LINK_CONSTRAINTS.UTM_CAMPAIGN_MAX_LENGTH}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    The name of the campaign or promotion.
+                  </FormDescription>
+                  <FormMessage role="alert" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="utm_term"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Term</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="running+shoes, organic+coffee"
+                      maxLength={LINK_CONSTRAINTS.UTM_TERM_MAX_LENGTH}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    The keywords or terms associated with the link.
+                  </FormDescription>
+                  <FormMessage role="alert" />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="utm_content"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Content</FormLabel>
+                  <FormControl>
+                    <Input
+                      placeholder="top_banner, sidebar_ad, footer_link"
+                      maxLength={LINK_CONSTRAINTS.UTM_CONTENT_MAX_LENGTH}
+                      {...field}
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    The specific content or version of the ad or link.
+                  </FormDescription>
+                  <FormMessage role="alert" />
                 </FormItem>
               )}
             />
@@ -116,6 +291,7 @@ export function CreateNewLinkForm() {
           type="submit"
           disabled={form.formState.isSubmitting || formPending}
           aria-busy={form.formState.isSubmitting || formPending}
+          // className="w-fit"
         >
           {form.formState.isSubmitting || formPending ? (
             <>

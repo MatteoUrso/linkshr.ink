@@ -1,4 +1,5 @@
 import { db } from "@/db/drizzle";
+import Link from "next/link";
 
 export default async function Page() {
   const links = await db.query.link.findMany();
@@ -10,6 +11,7 @@ export default async function Page() {
       <p className="mt-2 text-sm text-gray-500">
         This is a placeholder for your links content. {links.length}
       </p>
+      <Link href="/dashboard/links/new">Add New Link</Link>
     </div>
   );
 }
