@@ -16,13 +16,18 @@ export const FormSchema = z.object({
       message: `Short code can only contain letters, numbers, and underscores`,
     })
     .optional()
-    .or(z.literal("")), // Allow empty string
+    .or(
+      // Allow empty string to be transformed to undefined
+      z.literal("")
+    )
+    .transform((val) => (val === "" ? undefined : val)), // Transform empty string to undefined
   title: z
     .string()
     .max(LINK_CONSTRAINTS.TITLE_MAX_LENGTH, {
       message: `Title must be at most ${LINK_CONSTRAINTS.TITLE_MAX_LENGTH} characters long`,
     })
-    .optional(),
+    .optional()
+    .transform((val) => (val === "" ? undefined : val)), // Transform empty string to undefined
 
   // Security & Expiration
   // expiration_date: z
@@ -45,29 +50,34 @@ export const FormSchema = z.object({
     .max(LINK_CONSTRAINTS.UTM_SOURCE_MAX_LENGTH, {
       message: `UTM Source must be at most ${LINK_CONSTRAINTS.UTM_SOURCE_MAX_LENGTH} characters long`,
     })
-    .optional(),
+    .optional()
+    .transform((val) => (val === "" ? undefined : val)), // Transform empty string to undefined
   utm_medium: z
     .string()
     .max(LINK_CONSTRAINTS.UTM_MEDIUM_MAX_LENGTH, {
       message: `UTM Medium must be at most ${LINK_CONSTRAINTS.UTM_MEDIUM_MAX_LENGTH} characters long`,
     })
-    .optional(),
+    .optional()
+    .transform((val) => (val === "" ? undefined : val)), // Transform empty string to undefined
   utm_campaign: z
     .string()
     .max(LINK_CONSTRAINTS.UTM_CAMPAIGN_MAX_LENGTH, {
       message: `UTM Campaign must be at most ${LINK_CONSTRAINTS.UTM_CAMPAIGN_MAX_LENGTH} characters long`,
     })
-    .optional(),
+    .optional()
+    .transform((val) => (val === "" ? undefined : val)), // Transform empty string to undefined
   utm_content: z
     .string()
     .max(LINK_CONSTRAINTS.UTM_CONTENT_MAX_LENGTH, {
       message: `UTM Content must be at most ${LINK_CONSTRAINTS.UTM_CONTENT_MAX_LENGTH} characters long`,
     })
-    .optional(),
+    .optional()
+    .transform((val) => (val === "" ? undefined : val)), // Transform empty string to undefined
   utm_term: z
     .string()
     .max(LINK_CONSTRAINTS.UTM_TERM_MAX_LENGTH, {
       message: `UTM Term must be at most ${LINK_CONSTRAINTS.UTM_TERM_MAX_LENGTH} characters long`,
     })
-    .optional(),
+    .optional()
+    .transform((val) => (val === "" ? undefined : val)), // Transform empty string to undefined
 });

@@ -1,5 +1,8 @@
 import { getLinkByShortCode } from "./_lib/db-actions";
+import type { Metadata } from "next";
 import { notFound, redirect } from "next/navigation";
+// https://nextjs.org/docs/app/api-reference/functions/after
+import { after } from "next/server";
 
 type Props = {
   params: Promise<{ shortCode: string }>;
@@ -8,6 +11,26 @@ type Props = {
 // Prevent static generation to ensure the page is always up-to-date
 export const dynamic = "force-dynamic";
 export const revalidate = 0;
+
+export async function generateMetadata({
+  params,
+}: Props): Promise<Metadata | null> {
+  const { shortCode } = await params;
+
+  const linkData = await getLinkByShortCode(shortCode);
+
+  if (!linkData) return null;
+
+  return {
+    title: linkData.title ? `${linkData.title}` : "Redirect",
+    description: `You're being redirected to ${new URL(linkData.original_url).hostname}`,
+    // openGraph: {
+    //   title: linkData.title || "LinkShrink Redirect",
+    //   description: `Redirecting to ${new URL(linkData.original_url).hostname}`,
+    //   type: "website",
+    // },
+  };
+}
 
 export default async function Page({ params }: Props) {
   const { shortCode } = await params;
@@ -39,6 +62,10 @@ export default async function Page({ params }: Props) {
     if (value) {
       originalUrl.searchParams.set(key, value);
     }
+  });
+
+  after(() => {
+    console.log("Redirecting to:", originalUrl.toString());
   });
 
   // 7. Redirect to the original URL

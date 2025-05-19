@@ -69,3 +69,12 @@ export const link = pgTable("link", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+
+export const click = pgTable("click", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  linkId: uuid("link_id")
+    .notNull()
+    .references(() => link.id, { onDelete: "cascade" }),
+
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+});

@@ -31,6 +31,10 @@ export async function createLink(_: State, formData: FormData): Promise<State> {
     // This is important to prevent any leading or trailing spaces
     shortCode = shortCode.trim();
 
+    if (shortCode.length === 0) {
+      throw new Error("Short code cannot be empty");
+    }
+
     // Check if the shortCode already exists
     const existingLink = await db.query.link.findFirst({
       where: eq(link.short_code, shortCode),
@@ -75,6 +79,22 @@ export async function createLink(_: State, formData: FormData): Promise<State> {
             field: "short_code",
             message:
               "The short code already exists. Please choose a different one.",
+          },
+        ],
+      };
+    }
+
+    if (
+      error instanceof Error &&
+      error.message === "Short code cannot be empty"
+    ) {
+      return {
+        status: "error",
+        message: "Validation error",
+        errors: [
+          {
+            field: "short_code",
+            message: "Short code cannot be empty.",
           },
         ],
       };
