@@ -105,6 +105,7 @@ export function SignInForm({
                   autoComplete="email"
                   required
                   aria-required="true"
+                  autoFocus
                   {...field}
                 />
               </FormControl>
