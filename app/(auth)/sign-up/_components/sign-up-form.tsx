@@ -127,6 +127,7 @@ export function SignUpForm({
                   required
                   aria-required="true"
                   maxLength={USER_CONSTRAINTS.NAME_MAX_LENGTH}
+                  autoFocus
                   {...field}
                 />
               </FormControl>
