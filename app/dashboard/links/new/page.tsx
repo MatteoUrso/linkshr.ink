@@ -1,6 +1,7 @@
 import { CreateNewLinkForm } from "./_components/create-new-link-form";
 import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
+import { withAuth } from "@/lib/with-auth";
 import { ChevronLeft } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
@@ -11,7 +12,7 @@ export const metadata: Metadata = {
     "Create custom shortened URLs with advanced options like UTM parameters, password protection, and expiration dates. Track clicks and manage your links efficiently with LinkShrink.",
 };
 
-export default function Page() {
+function Page() {
   return (
     <div className="container mx-auto px-4 py-6">
       {/* Header with navigation */}
@@ -83,3 +84,5 @@ export default function Page() {
     </div>
   );
 }
+
+export default withAuth(Page);

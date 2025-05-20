@@ -40,7 +40,11 @@ async function DashboardLayout({
       />
       <SidebarInset>
         <header className="border-slate-6 flex h-16 shrink-0 items-center gap-2 border-b px-4">
-          <SidebarTrigger className="-ml-1" />
+          <SidebarTrigger
+            className="-ml-1"
+            // Set tabIndex to 1 to make it focusable when user click the trigger the first time
+            tabIndex={1}
+          />
           <Separator orientation="vertical" className="mr-2 h-4" />
           <ThemeSwitcher className="ml-auto" />
 
