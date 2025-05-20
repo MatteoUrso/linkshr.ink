@@ -126,6 +126,7 @@ export function SignUpForm({
                   spellCheck="false"
                   required
                   aria-required="true"
+                  maxLength={USER_CONSTRAINTS.NAME_MAX_LENGTH}
                   {...field}
                 />
               </FormControl>
