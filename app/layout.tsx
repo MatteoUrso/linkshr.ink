@@ -1,6 +1,7 @@
 import "./globals.css";
 import { inter, jetbrainsMono, sora } from "@/app/fonts";
 import { ThemeProvider } from "@/components/theme-provider";
+import { siteConfig } from "@/config/site";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
@@ -18,7 +19,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html lang={siteConfig.defaultLang} suppressHydrationWarning>
       <body
         className={`${inter.variable} ${jetbrainsMono.variable} ${sora.variable} antialiased`}
       >

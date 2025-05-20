@@ -2,6 +2,7 @@ import {
   boolean,
   integer,
   pgTable,
+  primaryKey,
   text,
   timestamp,
   uuid,
@@ -17,6 +18,8 @@ export const user = pgTable("user", {
   updatedAt: timestamp("updated_at").notNull(),
 });
 
+export type SelectUser = typeof user.$inferSelect;
+
 export const session = pgTable("session", {
   id: text("id").primaryKey(),
   expiresAt: timestamp("expires_at").notNull(),
@@ -29,6 +32,8 @@ export const session = pgTable("session", {
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
 });
+
+export type SelectSession = typeof session.$inferSelect;
 
 export const account = pgTable("account", {
   id: text("id").primaryKey(),
@@ -66,6 +71,9 @@ export const link = pgTable("link", {
   shortCode: text("short_code").notNull().unique(),
   title: text("title"),
 
+  hasShortCodeCustom: boolean("has_short_code_custom").default(false).notNull(), // Indicates if the user has set a custom short code
+  hasQrCode: boolean("has_qr_code").default(false).notNull(), // Indicates if the user has generated a QR code for the link
+
   // UTM Parameters
   utmSource: text("utm_source"),
   utmMedium: text("utm_medium"),
@@ -96,3 +104,31 @@ export const click = pgTable("click", {
 
   createdAt: timestamp("created_at").defaultNow().notNull(),
 });
+
+export const tag = pgTable("tag", {
+  id: uuid("id").defaultRandom().primaryKey(),
+  name: text("name").notNull(),
+  slug: text("slug").notNull().unique(),
+  color: text("color").default("#3e63dd"),
+  userId: text("user_id")
+    .notNull()
+    .references(() => user.id, { onDelete: "cascade" }),
+  createdAt: timestamp("created_at").defaultNow().notNull(),
+  updatedAt: timestamp("updated_at").defaultNow().notNull(),
+});
+
+export const linkTag = pgTable(
+  "link_tag",
+  {
+    linkId: uuid("link_id")
+      .notNull()
+      .references(() => link.id, { onDelete: "cascade" }),
+    tagId: uuid("tag_id")
+      .notNull()
+      .references(() => tag.id, { onDelete: "cascade" }),
+
+    createdAt: timestamp("created_at").defaultNow().notNull(),
+    updatedAt: timestamp("updated_at").defaultNow().notNull(),
+  },
+  (t) => [primaryKey({ columns: [t.linkId, t.tagId] })]
+);

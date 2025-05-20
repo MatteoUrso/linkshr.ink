@@ -5,6 +5,8 @@ import { drizzleAdapter } from "better-auth/adapters/drizzle";
 import { APIError, createAuthMiddleware } from "better-auth/api";
 import { haveIBeenPwned } from "better-auth/plugins";
 
+// import { admin } from "better-auth/plugins";
+
 export const auth = betterAuth({
   database: drizzleAdapter(db, {
     provider: "pg",
@@ -17,6 +19,8 @@ export const auth = betterAuth({
     haveIBeenPwned({
       customPasswordCompromisedMessage: "Please choose a more secure password.",
     }),
+    // // https://www.better-auth.com/docs/plugins/admin
+    // admin(),
   ],
   hooks: {
     before: createAuthMiddleware(async (ctx) => {
