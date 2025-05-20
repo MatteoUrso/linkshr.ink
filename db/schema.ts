@@ -1,4 +1,11 @@
-import { boolean, pgTable, text, timestamp, uuid } from "drizzle-orm/pg-core";
+import {
+  boolean,
+  integer,
+  pgTable,
+  text,
+  timestamp,
+  uuid,
+} from "drizzle-orm/pg-core";
 
 export const user = pgTable("user", {
   id: text("id").primaryKey(),
@@ -66,9 +73,13 @@ export const link = pgTable("link", {
   utmTerm: text("utm_term"),
   utmContent: text("utm_content"),
 
+  clicksCount: integer("clicks_count").default(0).notNull(),
+
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+
+export type SelectLink = typeof link.$inferSelect;
 
 export const click = pgTable("click", {
   id: uuid("id").defaultRandom().primaryKey(),

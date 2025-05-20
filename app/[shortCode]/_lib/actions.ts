@@ -1,12 +1,12 @@
 "use server";
 
 import { db } from "@/db/drizzle";
-import { click, link } from "@/db/schema";
+import { SelectLink, click, link } from "@/db/schema";
+import { eq, sql } from "drizzle-orm";
 import { UAParser } from "ua-parser-js";
 
-type Link = typeof link.$inferSelect;
 export async function createClick(
-  linkId: Link["id"],
+  linkId: SelectLink["id"],
   userAgent: string | null
 ): Promise<void> {
   try {
@@ -29,19 +29,26 @@ export async function createClick(
       deviceType = device.type;
       operatingSystem = os.name;
     }
-    await db.insert(click).values({
-      linkId,
-      browserName,
-      browserVersion,
-      deviceType,
-      operatingSystem,
-      userAgent,
+
+    await db.transaction(async (tx) => {
+      // Create a new click
+      await tx.insert(click).values({
+        linkId,
+        browserName,
+        browserVersion,
+        deviceType,
+        operatingSystem,
+        userAgent,
+      });
+
+      // Increment the click count for the link
+      await tx
+        .update(link)
+        .set({ clicksCount: sql`${link.clicksCount} + 1` })
+        .where(eq(link.id, linkId));
     });
   } catch (error) {
     console.error("Error creating click:", error);
-
-    // TODO: Handle error appropriately in production
-
     throw error;
   }
 }
