@@ -526,7 +526,7 @@ const sidebarMenuButtonVariants = cva(
     variants: {
       variant: {
         default:
-          "hover:bg-slate-4 active:bg-slate-5 data-[active=true]:bg-slate-5",
+          "hover:bg-slate-4 active:bg-slate-5 data-[active=true]:bg-indigo-5",
       },
       size: {
         default: "h-8 text-sm",
