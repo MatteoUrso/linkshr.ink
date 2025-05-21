@@ -1,22 +1,16 @@
+import { GetLinksSchema } from "./search-params";
 import { db } from "@/db/drizzle";
 import { SelectUser, link } from "@/db/schema";
+import { unstable_cache } from "@/lib/unstable-cache";
 import { and, asc, count, eq } from "drizzle-orm";
-import { unstable_cache } from "next/cache";
 import "server-only";
 
-export type GetLinksParams = {
-  page: number;
-  limit: number;
-};
 export async function getLinks(
   userId: SelectUser["id"],
-  params: GetLinksParams
+  params: GetLinksSchema
 ) {
   return await unstable_cache(
     async () => {
-      // TODO: Remove this timeout
-      // This is just for testing purposes to simulate a delay
-      await new Promise((resolve) => setTimeout(resolve, 1000));
       const offset = (params.page - 1) * params.limit;
 
       const where = and(

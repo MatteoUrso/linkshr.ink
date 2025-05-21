@@ -2,6 +2,7 @@ import "./globals.css";
 import { inter, jetbrainsMono, sora } from "@/app/fonts";
 import { ThemeProvider } from "@/components/theme-provider";
 import { siteConfig } from "@/config/site";
+import { NuqsAdapter } from "nuqs/adapters/next/app";
 
 // export const metadata: Metadata = {
 //   title: {
@@ -28,7 +29,7 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          {children}
+          <NuqsAdapter>{children}</NuqsAdapter>
         </ThemeProvider>
       </body>
     </html>

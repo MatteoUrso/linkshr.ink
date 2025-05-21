@@ -9,7 +9,8 @@ type Props = {
 
 export function LinksListArticle({ link }: Props) {
   const detailsId = `link-details-${link.id}`;
-  const faviconUrl = `https://www.google.com/s2/favicons?domain=${new URL(link.originalUrl).hostname}&sz=32`;
+  const domain = new URL(link.originalUrl).hostname;
+  const faviconUrl = `https://www.google.com/s2/favicons?domain=${domain}&sz=32`; // Return favicon for the domain 16x16 size
 
   return (
     <article className="border-slate-6 flex flex-col gap-3 rounded-md border p-4">
@@ -17,7 +18,7 @@ export function LinksListArticle({ link }: Props) {
         <div className="flex items-center gap-2">
           <Image
             src={faviconUrl}
-            alt="Favicon" // TODO: Add alt text
+            alt={`Favicon for ${domain}`}
             width={16}
             height={16}
             className="h-4 w-4 rounded"

@@ -1,27 +1,24 @@
 import { LinksList } from "./_components/links-list";
-import { GetLinksParams, getLinks } from "./_lib/queries";
+import { getLinks } from "./_lib/queries";
+import { searchParamsCache } from "./_lib/search-params";
 import { Button } from "@/components/ui/button";
-// import { Skeleton } from "@/components/ui/skeleton";
 import { WithAuthProps, withAuth } from "@/lib/with-auth";
 import { Plus } from "lucide-react";
 import Link from "next/link";
+import type { SearchParams } from "nuqs/server";
 import { Suspense } from "react";
-
-// Format numbers using Intl.NumberFormat for compact display
-// const formatter = new Intl.NumberFormat(siteConfig.defaultLang, {
-//   notation: "compact",
-//   compactDisplay: "short",
-//   maximumFractionDigits: 1,
-// });
 
 // TODO: Improve loading state
 
-async function Page({ user }: WithAuthProps) {
-  const params: GetLinksParams = {
-    page: 1,
-    limit: 5,
-  };
-  const links = getLinks(user.id, params);
+type Props = WithAuthProps & {
+  searchParams: Promise<SearchParams>;
+};
+
+async function Page(props: Props) {
+  const searchParams = await props.searchParams;
+  const search = searchParamsCache.parse(searchParams);
+
+  const links = getLinks(props.user.id, { ...search });
 
   const linksListId = "links-list";
 
