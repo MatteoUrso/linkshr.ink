@@ -23,6 +23,8 @@ import { z } from "zod";
 
 type FormFields = z.infer<typeof FormSchema>;
 
+// TODO: Add a tag selector to the form
+
 export function CreateNewLinkForm() {
   const [formState, formAction, formPending] = useActionState<State, FormData>(
     createLink,

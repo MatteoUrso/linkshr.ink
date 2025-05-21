@@ -25,17 +25,20 @@ export async function getTotalLinkStats(
   };
 }
 
-export async function getTotalClicks(
-  userId: SelectUser["id"]
-): Promise<{ totalClicks: number }> {
+/**
+ * @description Fetches all links for a user
+ * @param userId - The ID of the user
+ * @return An array of links
+ */
+export async function getLinks(userId: SelectUser["id"]) {
   const result = await db
     .select({
-      totalClicks: sql`sum(${link.clicksCount})`,
+      id: link.id,
+      createdAt: link.createdAt,
+      clicksCount: link.clicksCount,
     })
     .from(link)
     .where(eq(link.userId, userId));
 
-  return {
-    totalClicks: Number(result[0]?.totalClicks || 0),
-  };
+  return result;
 }

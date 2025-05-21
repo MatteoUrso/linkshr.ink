@@ -25,14 +25,12 @@ export async function createLink(_: State, formData: FormData): Promise<State> {
 
     const payload = Object.fromEntries(formData.entries());
     const safeData = FormSchema.parse(payload);
-
-    let shortCode = safeData.shortCode || generateShortCode(); // Generate a new short code if not provided
-    // Ensure the short code is trimmed and sanitized
-    // This is important to prevent any leading or trailing spaces
-    shortCode = shortCode.trim();
-
-    if (shortCode.length === 0) {
-      throw new Error("Short code cannot be empty");
+    let isShortCodeProvided = false;
+    let shortCode = safeData.shortCode?.trim() || "";
+    if (shortCode.length > 0) {
+      isShortCodeProvided = true;
+    } else {
+      shortCode = generateShortCode(); // Generate a new short code if not provided
     }
 
     // Check if the shortCode already exists
@@ -48,6 +46,7 @@ export async function createLink(_: State, formData: FormData): Promise<State> {
       originalUrl: safeData.originalUrl,
       title: safeData.title,
       shortCode: shortCode,
+      hasShortCodeCustom: isShortCodeProvided,
 
       // TODO: Check if user is a premium user
       utmSource: safeData.utmSource,

@@ -1,13 +1,4 @@
-import {
-  Card,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { cn } from "@/lib/utils";
 import { WithAuthProps, withAuth } from "@/lib/with-auth";
-import { TrendingUpIcon } from "lucide-react";
 
 function Page({ user }: WithAuthProps) {
   return (
@@ -15,8 +6,8 @@ function Page({ user }: WithAuthProps) {
       {/* Welcome section */}
       <section className="flex items-start justify-between">
         <div>
-          <h1 className="text-2xl font-bold">
-            Welcome back, {user.name.split(" ")[0]}
+          <h1 className="line-clamp-1 text-2xl font-bold">
+            Welcome back, {user.name}
           </h1>
           <p className="text-slate-11 mt-1">
             Here&apos;s what&apos;s happening with your links today
@@ -24,7 +15,7 @@ function Page({ user }: WithAuthProps) {
         </div>
       </section>
       {/* Key metrics */}
-      <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
+      {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
           <CardHeader className="relative">
             <CardDescription>Total clicks today</CardDescription>
@@ -51,7 +42,7 @@ function Page({ user }: WithAuthProps) {
             </div>
           </CardFooter>
         </Card>
-      </div>
+      </div> */}
     </div>
   );
 }

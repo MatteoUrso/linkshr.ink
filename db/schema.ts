@@ -76,6 +76,8 @@ export const link = pgTable("link", {
   shortCode: text("short_code").notNull().unique(),
   title: text("title"),
 
+  archived: boolean("archived").default(false).notNull(), // Indicates if the link is archived
+
   hasShortCodeCustom: boolean("has_short_code_custom").default(false).notNull(), // Indicates if the user has set a custom short code
   hasQrCode: boolean("has_qr_code").default(false).notNull(), // Indicates if the user has generated a QR code for the link
 
@@ -121,6 +123,8 @@ export const tag = pgTable("tag", {
   createdAt: timestamp("created_at").defaultNow().notNull(),
   updatedAt: timestamp("updated_at").defaultNow().notNull(),
 });
+
+export type SelectTag = typeof tag.$inferSelect;
 
 export const linkTag = pgTable(
   "link_tag",

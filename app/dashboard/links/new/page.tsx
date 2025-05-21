@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     "Create custom shortened URLs with advanced options like UTM parameters, password protection, and expiration dates. Track clicks and manage your links efficiently with LinkShrink.",
 };
 
-function Page() {
+async function Page() {
   return (
     <div className="container mx-auto px-4 py-6">
       {/* Header with navigation */}

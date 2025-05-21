@@ -1,4 +1,5 @@
-import { getTotalLinkStats } from "./_lib/db-actions";
+import { LinksList } from "./_components/links-list";
+import { getLinks, getTotalLinkStats } from "./_lib/db-actions";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 // import { Skeleton } from "@/components/ui/skeleton";
@@ -7,6 +8,7 @@ import { WithAuthProps, withAuth } from "@/lib/with-auth";
 import { LinkIcon, MousePointerClickIcon, Plus } from "lucide-react";
 import type { Metadata } from "next";
 import Link from "next/link";
+import { Suspense } from "react";
 
 export const metadata: Metadata = {
   title: "Manage Your Shortened Links",
@@ -21,10 +23,11 @@ const formatter = new Intl.NumberFormat(siteConfig.defaultLang, {
   maximumFractionDigits: 1,
 });
 
+// TODO: Improve loading state
+
 async function Page({ user }: WithAuthProps) {
   // Get basic stats
   const { totalLinks, totalClicks } = await getTotalLinkStats(user.id);
-
   const stats = [
     {
       title: "Total Links",
@@ -39,6 +42,8 @@ async function Page({ user }: WithAuthProps) {
       srOnly: " total clicks on your links",
     },
   ];
+
+  const links = getLinks(user.id);
 
   return (
     <div className="container mx-auto flex flex-col gap-6 px-4 py-6">
@@ -93,6 +98,19 @@ async function Page({ user }: WithAuthProps) {
             </Card>
           </article>
         ))}
+      </section>
+
+      {/* Links list */}
+      <section
+        aria-labelledby="links-list-heading"
+        className="flex flex-col gap-4"
+      >
+        <h2 id="links-list-heading" className="sr-only">
+          Your Links
+        </h2>
+        <Suspense fallback={<p>LOADING....</p>}>
+          <LinksList promise={links} />
+        </Suspense>
       </section>
     </div>
   );
