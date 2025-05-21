@@ -1,16 +1,11 @@
-import { config } from "dotenv";
+import { env } from "@/env.js";
 import { defineConfig } from "drizzle-kit";
-
-// const env = process.env.NODE_ENV || "development";
-// const isProduction = env === "production";
-// const path = isProduction ? ".env.production" : ".env.development";
-config({ path: ".env" });
 
 export default defineConfig({
   schema: "./db/schema.ts",
   out: "./db/migrations",
   dialect: "postgresql",
   dbCredentials: {
-    url: process.env.DATABASE_URL!,
+    url: env.DATABASE_URL,
   },
 });

@@ -1,5 +1,6 @@
 import "./globals.css";
 import { inter, jetbrainsMono, sora } from "@/app/fonts";
+import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
 import { siteConfig } from "@/config/site";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
@@ -29,7 +30,10 @@ export default function RootLayout({
           enableSystem
           disableTransitionOnChange
         >
-          <NuqsAdapter>{children}</NuqsAdapter>
+          <NuqsAdapter>
+            {children}
+            <TailwindIndicator />
+          </NuqsAdapter>
         </ThemeProvider>
       </body>
     </html>
