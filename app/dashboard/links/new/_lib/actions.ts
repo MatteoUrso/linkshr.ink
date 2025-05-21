@@ -7,7 +7,7 @@ import { db } from "@/db/drizzle";
 import { link } from "@/db/schema";
 import { getAuthSession } from "@/lib//auth-session";
 import { eq } from "drizzle-orm";
-import { revalidatePath } from "next/cache";
+import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { ZodError } from "zod";
 
@@ -106,6 +106,7 @@ export async function createLink(_: State, formData: FormData): Promise<State> {
   }
 
   // Revalidate the cache for the links page and redirect the user.
+  revalidateTag("links");
   revalidatePath("/dashboard/links");
   redirect("/dashboard/links");
 }

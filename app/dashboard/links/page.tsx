@@ -1,42 +1,29 @@
 import { LinksList } from "./_components/links-list";
-import { getLinks, getTotalLinkStats } from "./_lib/db-actions";
+import { GetLinksParams, getLinks } from "./_lib/queries";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent } from "@/components/ui/card";
 // import { Skeleton } from "@/components/ui/skeleton";
-import { siteConfig } from "@/config/site";
 import { WithAuthProps, withAuth } from "@/lib/with-auth";
-import { LinkIcon, MousePointerClickIcon, Plus } from "lucide-react";
+import { Plus } from "lucide-react";
 import Link from "next/link";
 import { Suspense } from "react";
 
 // Format numbers using Intl.NumberFormat for compact display
-const formatter = new Intl.NumberFormat(siteConfig.defaultLang, {
-  notation: "compact",
-  compactDisplay: "short",
-  maximumFractionDigits: 1,
-});
+// const formatter = new Intl.NumberFormat(siteConfig.defaultLang, {
+//   notation: "compact",
+//   compactDisplay: "short",
+//   maximumFractionDigits: 1,
+// });
 
 // TODO: Improve loading state
 
 async function Page({ user }: WithAuthProps) {
-  // Get basic stats
-  const { totalLinks, totalClicks } = await getTotalLinkStats(user.id);
-  const stats = [
-    {
-      title: "Total Links",
-      value: totalLinks,
-      icon: LinkIcon,
-      srOnly: " links created",
-    },
-    {
-      title: "Total Clicks",
-      value: totalClicks,
-      icon: MousePointerClickIcon,
-      srOnly: " total clicks on your links",
-    },
-  ];
+  const params: GetLinksParams = {
+    page: 1,
+    limit: 5,
+  };
+  const links = getLinks(user.id, params);
 
-  const links = getLinks(user.id);
+  const linksListId = "links-list";
 
   return (
     <div className="container mx-auto flex flex-col gap-6 px-4 py-6">
@@ -61,38 +48,6 @@ async function Page({ user }: WithAuthProps) {
         </Button>
       </section>
 
-      {/* Stats overview */}
-      <section
-        aria-labelledby="stats-heading"
-        className="grid grid-cols-1 gap-4 sm:grid-cols-2"
-      >
-        <h2 id="stats-heading" className="sr-only">
-          Link Statistics
-        </h2>
-        {stats.map((stat) => (
-          <article className="h-full" key={stat.title}>
-            <Card>
-              <CardContent className="flex items-center justify-between p-6">
-                <div className="space-y-1">
-                  <h3 className="text-slate-11 text-sm font-medium">
-                    {stat.title}
-                  </h3>
-                  <p className="text-2xl font-bold">
-                    <span aria-live="polite">
-                      {formatter.format(stat.value)}
-                    </span>
-                    <span className="sr-only">{stat.srOnly}</span>
-                  </p>
-                </div>
-                <div className="bg-slate-3 rounded-full p-2" aria-hidden="true">
-                  <stat.icon className="text-slate-11 h-4 w-4" />
-                </div>
-              </CardContent>
-            </Card>
-          </article>
-        ))}
-      </section>
-
       {/* Links list */}
       <section
         aria-labelledby="links-list-heading"
@@ -102,7 +57,7 @@ async function Page({ user }: WithAuthProps) {
           Your Links
         </h2>
         <Suspense fallback={<p>LOADING....</p>}>
-          <LinksList promise={links} />
+          <LinksList id={linksListId} promise={links} />
         </Suspense>
       </section>
     </div>
