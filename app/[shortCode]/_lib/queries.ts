@@ -1,6 +1,6 @@
 import { db } from "@/db/drizzle";
 import { link } from "@/db/schema";
-import { eq } from "drizzle-orm";
+import { and, eq } from "drizzle-orm";
 import "server-only";
 
 /**
@@ -12,7 +12,7 @@ export async function getLinkByShortCode(shortCode: string) {
   const links = await db
     .select()
     .from(link)
-    .where(eq(link.shortCode, shortCode))
+    .where(and(eq(link.shortCode, shortCode), eq(link.archived, false)))
     .limit(1);
 
   return links[0] || null;

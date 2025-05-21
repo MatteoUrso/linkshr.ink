@@ -1,4 +1,5 @@
 import { getLinks } from "../_lib/queries";
+import { cn } from "@/lib/utils";
 import { BarChart2, Globe, LinkIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -14,7 +15,8 @@ export function LinksListArticle({ link }: Props) {
 
   return (
     <article className="border-slate-6 flex flex-col gap-3 rounded-md border p-4">
-      <header className="flex items-start justify-between">
+      {/** Header */}
+      <header className="flex items-start justify-between bg-red-500">
         <div className="flex items-center gap-2">
           <Image
             src={faviconUrl}
@@ -33,14 +35,21 @@ export function LinksListArticle({ link }: Props) {
             </Link>
           </h3>
         </div>
-        <div className="flex items-center gap-2">
-          <span className="inline-flex items-center rounded-full bg-green-50 px-2 py-1 text-xs font-medium text-green-700">
-            <span className="sr-only">Status:</span>Active
-          </span>
-        </div>
+        {!link.archived ? (
+          <div className="flex items-center gap-2">
+            <div
+              className={cn(
+                "border-green-6 bg-green-9 inline-flex items-center rounded-md border px-2.5 py-0.5 text-xs font-semibold text-white transition-colors"
+              )}
+            >
+              <span className="sr-only">Status:</span>Active
+            </div>
+          </div>
+        ) : null}
       </header>
 
-      <section aria-labelledby={detailsId}>
+      {/** Link details */}
+      <section aria-labelledby={detailsId} className="bg-yellow-500">
         <h4 id={`link-details-${link.id}`} className="sr-only">
           Link Details
         </h4>
@@ -94,7 +103,8 @@ export function LinksListArticle({ link }: Props) {
         </dl>
       </section>
 
-      <footer className="mt-1 flex items-center justify-between border-t pt-3">
+      {/** Footer */}
+      <footer className="border-slate-6 flex items-center justify-between border-t bg-pink-500 pt-3">
         <div className="text-sm text-slate-500">
           ID: <span className="font-mono text-xs">{link.id}</span>
         </div>
