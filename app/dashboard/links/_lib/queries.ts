@@ -23,7 +23,13 @@ export async function getLinks(
 
       const { data, total } = await db.transaction(async (tx) => {
         const data = await tx
-          .select()
+          .select({
+            id: link.id,
+            title: link.title,
+            originalUrl: link.originalUrl,
+            linkUrl: link.linkUrl,
+            createdAt: link.createdAt,
+          })
           .from(link)
           .limit(params.limit)
           .offset(offset)
