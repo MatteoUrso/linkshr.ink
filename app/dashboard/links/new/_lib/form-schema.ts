@@ -23,11 +23,10 @@ export const FormSchema = z.object({
     .transform((val) => (val === "" ? undefined : val)), // Transform empty string to undefined
   title: z
     .string()
+    .min(1, { message: "Title is required" })
     .max(LINK_CONSTRAINTS.TITLE_MAX_LENGTH, {
       message: `Title must be at most ${LINK_CONSTRAINTS.TITLE_MAX_LENGTH} characters long`,
-    })
-    .optional()
-    .transform((val) => (val === "" ? undefined : val)), // Transform empty string to undefined
+    }),
 
   // Security & Expiration
   // expiration_date: z

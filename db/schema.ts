@@ -74,7 +74,7 @@ export const link = pgTable("link", {
     .references(() => user.id, { onDelete: "cascade" }),
   originalUrl: text("original_url").notNull(),
   shortCode: text("short_code").notNull().unique(),
-  title: text("title"),
+  title: text("title").notNull(),
 
   archived: boolean("archived").default(false).notNull(), // Indicates if the link is archived
 

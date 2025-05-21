@@ -6,15 +6,8 @@ import { Card, CardContent } from "@/components/ui/card";
 import { siteConfig } from "@/config/site";
 import { WithAuthProps, withAuth } from "@/lib/with-auth";
 import { LinkIcon, MousePointerClickIcon, Plus } from "lucide-react";
-import type { Metadata } from "next";
 import Link from "next/link";
 import { Suspense } from "react";
-
-export const metadata: Metadata = {
-  title: "Manage Your Shortened Links",
-  description:
-    "Track clicks, manage and organize all your shortened URLs in one place. Create new links, view analytics, and optimize your marketing campaigns.",
-};
 
 // Format numbers using Intl.NumberFormat for compact display
 const formatter = new Intl.NumberFormat(siteConfig.defaultLang, {

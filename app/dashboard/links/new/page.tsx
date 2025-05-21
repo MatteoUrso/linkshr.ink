@@ -1,27 +1,16 @@
 import { CreateNewLinkForm } from "./_components/create-new-link-form";
-import { Icons } from "@/components/icons";
+// import { Icons } from "@/components/icons";
 import { Button } from "@/components/ui/button";
 import { withAuth } from "@/lib/with-auth";
 import { ChevronLeft } from "lucide-react";
-import type { Metadata } from "next";
 import Link from "next/link";
-
-export const metadata: Metadata = {
-  title: "Create New Link",
-  description:
-    "Create custom shortened URLs with advanced options like UTM parameters, password protection, and expiration dates. Track clicks and manage your links efficiently with LinkShrink.",
-};
 
 async function Page() {
   return (
     <div className="container mx-auto px-4 py-6">
       {/* Header with navigation */}
       <div className="mb-8">
-        <Button
-          asChild
-          variant="linkNeutral"
-          className="focus-visible:ring-offset-slate-1 mb-6 h-fit px-0 py-0 focus-visible:ring-offset-2"
-        >
+        <Button asChild variant="linkNeutral" className="mb-6">
           <Link href="/dashboard/links">
             <ChevronLeft className="h-4 w-4" />
             <span>Back to Links</span>
@@ -34,14 +23,15 @@ async function Page() {
           settings.
         </p>
       </div>
+      <CreateNewLinkForm />
       <div className="grid gap-8 md:grid-cols-3">
         {/* Form section - takes up 2/3 on desktop */}
-        <div className="md:col-span-2">
+        {/* <div className="md:col-span-2">
           <CreateNewLinkForm />
-        </div>
+        </div> */}
 
         {/* Tips sidebar - takes up 1/3 on desktop */}
-        <aside className="border-slate-6 h-fit rounded-lg border p-5 md:mt-7">
+        {/* <aside className="border-slate-6 h-fit rounded-lg border p-5 md:mt-7">
           <h2 className="font-sora mb-4 text-lg font-medium">Link Tips</h2>
 
           <ul className="flex flex-col gap-4 text-sm">
@@ -79,7 +69,7 @@ async function Page() {
               </Link>
             </Button>
           </div>
-        </aside>
+        </aside> */}
       </div>
     </div>
   );

@@ -1,0 +1,1 @@
+ALTER TABLE "link" ALTER COLUMN "title" SET NOT NULL;

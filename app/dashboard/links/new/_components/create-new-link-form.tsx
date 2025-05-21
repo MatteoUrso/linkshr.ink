@@ -23,7 +23,7 @@ import { z } from "zod";
 
 type FormFields = z.infer<typeof FormSchema>;
 
-// TODO: Add a tag selector to the form
+// TODO: Add a select for custom domain
 
 export function CreateNewLinkForm() {
   const [formState, formAction, formPending] = useActionState<State, FormData>(
@@ -107,11 +107,16 @@ export function CreateNewLinkForm() {
                 <FormItem>
                   <FormLabel>
                     Title
-                    <span className="sr-only">(optional)</span>
+                    <span aria-label="required" className="text-red-11 ml-1">
+                      *
+                    </span>
+                    <span className="sr-only">(required)</span>
                   </FormLabel>
                   <FormControl>
                     <Input
                       placeholder="My Marketing Campaign"
+                      required
+                      aria-required="true"
                       maxLength={LINK_CONSTRAINTS.TITLE_MAX_LENGTH}
                       {...field}
                     />
@@ -123,6 +128,7 @@ export function CreateNewLinkForm() {
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="shortCode"
@@ -133,30 +139,25 @@ export function CreateNewLinkForm() {
                     <span className="sr-only">(optional)</span>
                   </FormLabel>
                   <FormControl>
-                    <Input
-                      placeholder="random-code"
-                      type="text"
-                      autoCapitalize="none" // Prevent the keyboard from opening in uppercase
-                      autoCorrect="off" // Prevent the keyboard from opening in suggestions
-                      spellCheck="false" // Prevent the keyboard from opening in suggestions
-                      maxLength={LINK_CONSTRAINTS.SHORTCODE_MAX_LENGTH}
-                      {...field}
-                    />
+                    <div className="relative">
+                      <span className="text-slate-11 absolute top-1/2 left-4 -translate-y-1/2 text-base">
+                        linkshr.ink/
+                      </span>
+                      <Input
+                        placeholder="random-code"
+                        className="pl-[98px]"
+                        type="text"
+                        autoCapitalize="none" // Prevent the keyboard from opening in uppercase
+                        autoCorrect="off" // Prevent the keyboard from opening in suggestions
+                        spellCheck="false" // Prevent the keyboard from opening in suggestions
+                        maxLength={LINK_CONSTRAINTS.SHORTCODE_MAX_LENGTH}
+                        {...field}
+                      />
+                    </div>
                   </FormControl>
                   <FormDescription>
                     Leave blank for an auto-generated slug.
                   </FormDescription>
-                  {/* Anteprima del link - qui sotto */}
-                  {/* <div className="bg-slate-3 mt-2 flex items-center rounded-md px-3 py-2 text-sm">
-                    <span className="text-slate-11 font-medium">
-                      linkshr.ink/
-                    </span>
-                    <span className="font-jetbrains text-slate-12">
-                      {field.value || (
-                        <span className="text-slate-9">random-code</span>
-                      )}
-                    </span>
-                  </div> */}
                   <FormMessage role="alert" />
                 </FormItem>
               )}
@@ -166,7 +167,10 @@ export function CreateNewLinkForm() {
 
         {/* UTM Parameters */}
         <fieldset className="m-0 border-0 p-0">
-          <legend className="mb-1 text-xl font-semibold">UTM Parameters</legend>
+          <legend className="text-xl font-semibold">UTM Parameters</legend>
+          <p className="text-slate-11 mb-1 text-sm">
+            Add UTM parameters to track the performance of your links.
+          </p>
           <div className="bg-slate-2 border-slate-6 flex flex-col gap-4 rounded-lg border p-6">
             <FormField
               control={form.control}
@@ -286,7 +290,7 @@ export function CreateNewLinkForm() {
           type="submit"
           disabled={form.formState.isSubmitting || formPending}
           aria-busy={form.formState.isSubmitting || formPending}
-          // className="w-fit"
+          className="w-fit"
         >
           {form.formState.isSubmitting || formPending ? (
             <>
