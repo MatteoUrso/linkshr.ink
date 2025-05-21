@@ -37,6 +37,7 @@ export function CreateNewLinkForm() {
     resolver: zodResolver(FormSchema),
     defaultValues: {
       originalUrl: "",
+      title: "",
     },
   });
 
