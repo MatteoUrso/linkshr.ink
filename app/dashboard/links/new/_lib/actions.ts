@@ -2,7 +2,7 @@
 
 import { State } from "../_types/state";
 import { FormSchema } from "./form-schema";
-import { generateShortCode } from "./utils";
+import { generateBackHalf } from "./utils";
 import { db } from "@/db/drizzle";
 import { link } from "@/db/schema";
 import { getAuthSession } from "@/lib//auth-session";
@@ -25,17 +25,17 @@ export async function createLink(_: State, formData: FormData): Promise<State> {
 
     const payload = Object.fromEntries(formData.entries());
     const safeData = FormSchema.parse(payload);
-    let isShortCodeProvided = false;
-    let shortCode = safeData.shortCode?.trim() || "";
-    if (shortCode.length > 0) {
-      isShortCodeProvided = true;
+    let isBackHalfProvided = false;
+    let backHalf = safeData.backHalf?.trim() || "";
+    if (backHalf.length > 0) {
+      isBackHalfProvided = true;
     } else {
-      shortCode = generateShortCode(); // Generate a new short code if not provided
+      backHalf = generateBackHalf(); // Generate a new short code if not provided
     }
 
-    // Check if the shortCode already exists
+    // Check if the backHalf already exists
     const existingLink = await db.query.link.findFirst({
-      where: eq(link.shortCode, shortCode),
+      where: eq(link.backHalf, backHalf),
     });
     if (existingLink) {
       throw new Error("Conflict");
@@ -45,8 +45,10 @@ export async function createLink(_: State, formData: FormData): Promise<State> {
       userId: userId,
       originalUrl: safeData.originalUrl,
       title: safeData.title,
-      shortCode: shortCode,
-      hasShortCodeCustom: isShortCodeProvided,
+      backHalf: backHalf,
+      linkUrl: `${process.env.NEXT_PUBLIC_BASE_URL}/${backHalf}`,
+
+      hasCustomBackHalf: isBackHalfProvided,
 
       // TODO: Check if user is a premium user
       utmSource: safeData.utmSource,
@@ -75,25 +77,9 @@ export async function createLink(_: State, formData: FormData): Promise<State> {
         message: "Validation error",
         errors: [
           {
-            field: "short_code",
+            field: "backHalf",
             message:
-              "The short code already exists. Please choose a different one.",
-          },
-        ],
-      };
-    }
-
-    if (
-      error instanceof Error &&
-      error.message === "Short code cannot be empty"
-    ) {
-      return {
-        status: "error",
-        message: "Validation error",
-        errors: [
-          {
-            field: "short_code",
-            message: "Short code cannot be empty.",
+              "The back-half already exists. Please choose a different one.",
           },
         ],
       };

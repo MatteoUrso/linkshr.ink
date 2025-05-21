@@ -77,7 +77,7 @@ export function CreateNewLinkForm() {
               render={({ field }) => (
                 <FormItem>
                   <FormLabel>
-                    Original URL
+                    Destination URL
                     <span aria-label="required" className="text-red-11 ml-1">
                       *
                     </span>
@@ -131,11 +131,11 @@ export function CreateNewLinkForm() {
 
             <FormField
               control={form.control}
-              name="shortCode"
+              name="backHalf"
               render={({ field }) => (
                 <FormItem className="w-full">
                   <FormLabel>
-                    Custom Slug
+                    Back-half
                     <span className="sr-only">(optional)</span>
                   </FormLabel>
                   <FormControl>
@@ -150,13 +150,13 @@ export function CreateNewLinkForm() {
                         autoCapitalize="none" // Prevent the keyboard from opening in uppercase
                         autoCorrect="off" // Prevent the keyboard from opening in suggestions
                         spellCheck="false" // Prevent the keyboard from opening in suggestions
-                        maxLength={LINK_CONSTRAINTS.SHORTCODE_MAX_LENGTH}
+                        maxLength={LINK_CONSTRAINTS.BACKHALF_MAX_LENGTH}
                         {...field}
                       />
                     </div>
                   </FormControl>
                   <FormDescription>
-                    Leave blank for an auto-generated slug.
+                    Leave blank for an auto-generated back-half.
                   </FormDescription>
                   <FormMessage role="alert" />
                 </FormItem>

@@ -1,12 +1,12 @@
 import { createClick } from "./_lib/actions";
-import { getLinkByShortCode } from "./_lib/queries";
+import { getLinkByBackHalf } from "./_lib/queries";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
 import { after } from "next/server";
 
 type Props = {
-  params: Promise<{ shortCode: string }>;
+  params: Promise<{ backHalf: string }>;
 };
 
 // Prevent static generation to ensure the page is always up-to-date
@@ -16,9 +16,9 @@ export const revalidate = 0;
 export async function generateMetadata({
   params,
 }: Props): Promise<Metadata | null> {
-  const { shortCode } = await params;
+  const { backHalf } = await params;
 
-  const linkData = await getLinkByShortCode(shortCode);
+  const linkData = await getLinkByBackHalf(backHalf);
 
   if (!linkData) return null;
 
@@ -34,10 +34,10 @@ export async function generateMetadata({
 }
 
 export default async function Page({ params }: Props) {
-  const { shortCode } = await params;
+  const { backHalf } = await params;
 
   // 1. Search the link in the database
-  const linkData = await getLinkByShortCode(shortCode);
+  const linkData = await getLinkByBackHalf(backHalf);
 
   // 2. Handle link not found
   if (!linkData) notFound();

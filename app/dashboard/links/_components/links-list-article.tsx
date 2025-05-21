@@ -28,7 +28,7 @@ export function LinksListArticle({ link }: Props) {
           />
           <h3 className="text-lg font-semibold">
             <Link
-              href={`/dashboard/links/${link.shortCode}`}
+              href={`/dashboard/links/${link.backHalf}`}
               className="hover:underline focus-visible:outline-offset-4"
             >
               {link.title}
@@ -67,7 +67,7 @@ export function LinksListArticle({ link }: Props) {
             <LinkIcon className="h-4 w-4 text-slate-400" aria-hidden="true" />
             <dd className="flex items-center">
               <code className="rounded bg-slate-100 px-1 py-0.5 font-mono text-sm">
-                {`linkshr.ink/${link.shortCode}`}
+                {link.linkUrl}
               </code>
               <button
                 type="button"

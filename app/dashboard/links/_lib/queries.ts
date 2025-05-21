@@ -17,9 +17,6 @@ export async function getLinks(
         eq(link.userId, userId)
         // params?.archived ? eq(link.archived, true) : undefined,
         // params?.has_qr_code ? eq(link.hasQrCode, true) : undefined,
-        // params?.has_short_code_custom
-        //   ? eq(link.hasShortCodeCustom, true)
-        //   : undefined
       );
 
       const orderBy = asc(link.createdAt);

@@ -73,13 +73,14 @@ export const link = pgTable("link", {
     .notNull()
     .references(() => user.id, { onDelete: "cascade" }),
   originalUrl: text("original_url").notNull(),
-  shortCode: text("short_code").notNull().unique(),
+  backHalf: text("back_half").notNull().unique(), // The back-half of the URL, which is the part after the domain
+  linkUrl: text("link_url").notNull().unique(), // The full URL of the link, including the domain and back-half
   title: text("title").notNull(),
 
   archived: boolean("archived").default(false).notNull(), // Indicates if the link is archived
 
-  hasShortCodeCustom: boolean("has_short_code_custom").default(false).notNull(), // Indicates if the user has set a custom short code
   hasQrCode: boolean("has_qr_code").default(false).notNull(), // Indicates if the user has generated a QR code for the link
+  hasCustomBackHalf: boolean("has_custom_back_half").default(false).notNull(), // Indicates if the user has set a custom back-half for the link
 
   // UTM Parameters
   utmSource: text("utm_source"),

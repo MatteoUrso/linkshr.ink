@@ -5,15 +5,15 @@ import { z } from "zod";
 export const FormSchema = z.object({
   originalUrl: z
     .string()
-    .min(1, { message: "Original URL is required" })
+    .min(1, { message: "Destination URL is required" })
     .url({ message: "Please enter a valid URL including http:// or https://" }),
-  shortCode: z
+  backHalf: z
     .string()
-    .max(LINK_CONSTRAINTS.SHORTCODE_MAX_LENGTH, {
-      message: `Short code must be at most ${LINK_CONSTRAINTS.SHORTCODE_MAX_LENGTH} characters long`,
+    .max(LINK_CONSTRAINTS.BACKHALF_MAX_LENGTH, {
+      message: `Back-half must be at most ${LINK_CONSTRAINTS.BACKHALF_MAX_LENGTH} characters long`,
     })
-    .regex(LINK_CONSTRAINTS.SHORTCODE_REGEX, {
-      message: `Short code can only contain letters, numbers, and underscores`,
+    .regex(LINK_CONSTRAINTS.BACKHALF_REGEX, {
+      message: `Back-half can only contain letters, numbers, and underscores`,
     })
     .optional()
     .or(
