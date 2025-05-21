@@ -1,5 +1,5 @@
 import { createClick } from "./_lib/actions";
-import { getLinkByShortCode } from "./_lib/db-actions";
+import { getLinkByShortCode } from "./_lib/queries";
 import type { Metadata } from "next";
 import { headers } from "next/headers";
 import { notFound, redirect } from "next/navigation";
