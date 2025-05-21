@@ -16,7 +16,6 @@ type Props = {
 
 async function DashboardLayout({
   children,
-  // breadcrumb,
   user,
 }: Readonly<Props> & WithAuthProps) {
   const cookieStore = await cookies();
