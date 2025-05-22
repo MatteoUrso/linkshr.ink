@@ -1,4 +1,4 @@
-export type State =
+export type FormState =
   | {
       status: "success";
       message: string;

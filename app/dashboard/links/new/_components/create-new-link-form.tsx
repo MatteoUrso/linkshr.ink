@@ -1,9 +1,7 @@
 "use client";
 
 import { createLink } from "../_lib/actions";
-import { LINK_CONSTRAINTS } from "../_lib/constants";
 import { FormSchema } from "../_lib/form-schema";
-import { State } from "../_types/state";
 import { Button } from "@/components/ui/button";
 import {
   Form,
@@ -15,6 +13,8 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
+import { LINK_CONSTRAINTS } from "@/lib/constants";
+import { FormState } from "@/types/form-state";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Loader2 } from "lucide-react";
 import { startTransition, useActionState, useEffect, useRef } from "react";
@@ -26,10 +26,10 @@ type FormFields = z.infer<typeof FormSchema>;
 // TODO: Add a select for custom domain
 
 export function CreateNewLinkForm() {
-  const [formState, formAction, formPending] = useActionState<State, FormData>(
-    createLink,
-    null
-  );
+  const [formState, formAction, formPending] = useActionState<
+    FormState,
+    FormData
+  >(createLink, null);
 
   const formRef = useRef<HTMLFormElement>(null);
 

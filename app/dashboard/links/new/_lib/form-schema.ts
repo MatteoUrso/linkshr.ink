@@ -1,4 +1,4 @@
-import { LINK_CONSTRAINTS } from "./constants";
+import { LINK_CONSTRAINTS } from "@/lib/constants";
 // import { addYears } from "date-fns";
 import { z } from "zod";
 

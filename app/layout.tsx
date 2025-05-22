@@ -1,9 +1,24 @@
 import "./globals.css";
-import { inter, jetbrainsMono, sora } from "@/app/fonts";
 import { TailwindIndicator } from "@/components/tailwind-indicator";
 import { ThemeProvider } from "@/components/theme-provider";
 import { siteConfig } from "@/config/site";
+import { Inter, JetBrains_Mono, Sora } from "next/font/google";
 import { NuqsAdapter } from "nuqs/adapters/next/app";
+
+const inter = Inter({
+  variable: "--font-inter",
+  subsets: ["latin"],
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  variable: "--font-jetbrains",
+  subsets: ["latin"],
+});
+
+const sora = Sora({
+  variable: "--font-sora",
+  subsets: ["latin"],
+});
 
 // export const metadata: Metadata = {
 //   title: {

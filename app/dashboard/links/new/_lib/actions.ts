@@ -1,17 +1,20 @@
 "use server";
 
-import { State } from "../_types/state";
 import { FormSchema } from "./form-schema";
 import { generateBackHalf } from "./utils";
 import { db } from "@/db/drizzle";
 import { link } from "@/db/schema";
 import { getAuthSession } from "@/lib//auth-session";
+import { FormState } from "@/types/form-state";
 import { eq } from "drizzle-orm";
 import { revalidatePath, revalidateTag } from "next/cache";
 import { redirect } from "next/navigation";
 import { ZodError } from "zod";
 
-export async function createLink(_: State, formData: FormData): Promise<State> {
+export async function createLink(
+  _: FormState,
+  formData: FormData
+): Promise<FormState> {
   try {
     const session = await getAuthSession();
     if (!session) {
