@@ -4,16 +4,9 @@ function Page({ user }: WithAuthProps) {
   return (
     <div className="container mx-auto px-4 py-6">
       {/* Welcome section */}
-      <section className="flex items-start justify-between">
-        <div>
-          <h1 className="line-clamp-1 text-2xl font-bold">
-            Welcome back, {user.name}
-          </h1>
-          <p className="text-slate-11 mt-1">
-            Here&apos;s what&apos;s happening with your links today
-          </p>
-        </div>
-      </section>
+      <h1 className="font-sora text-2xl font-semibold">
+        Welcome back, {user.name}
+      </h1>
       {/* Key metrics */}
       {/* <div className="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4">
         <Card>
