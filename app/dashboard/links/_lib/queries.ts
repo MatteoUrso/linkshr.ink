@@ -1,6 +1,6 @@
 import { GetLinksSchema } from "./search-params";
 import { db } from "@/db/drizzle";
-import { SelectUser, link } from "@/db/schema";
+import { SelectUser, link, tag } from "@/db/schema";
 import { unstable_cache } from "@/lib/unstable-cache";
 import { and, asc, count, eq } from "drizzle-orm";
 import "server-only";
@@ -14,8 +14,8 @@ export async function getLinks(
       const offset = (params.page - 1) * params.limit;
 
       const where = and(
-        eq(link.userId, userId)
-        // params?.archived ? eq(link.archived, true) : undefined,
+        eq(link.userId, userId),
+        params.archived ? eq(link.archived, true) : undefined
         // params?.has_qr_code ? eq(link.hasQrCode, true) : undefined,
       );
 
@@ -58,4 +58,17 @@ export async function getLinks(
       tags: ["links"],
     }
   )();
+}
+
+export async function getTags(userId: SelectUser["id"]) {
+  return await db
+    .select({
+      id: tag.id,
+      slug: tag.slug,
+      name: tag.name,
+      color: tag.color,
+    })
+    .from(tag)
+    .where(eq(tag.userId, userId))
+    .orderBy(asc(tag.createdAt));
 }
